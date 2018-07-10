@@ -18,10 +18,10 @@ int main ()
     double num3 = 17584.22;
     char string1 = 0;
 
-    printf("num1 is %d, and its size is %d\n", num1, sizeof(num1));
+    printf("\nnum1 is %d, and its size is %d\n", num1, sizeof(num1));
     printf("num2 is %f, and its size is %d\n", num2, sizeof(num2));
     printf("num3 is %lf, and its size is %d\n", num3, sizeof(num3));
-    printf("string1 is %d, and its size is %d\n", string1, sizeof(string1));
+    printf("string1 is %d, and its size is %d\n\n", string1, sizeof(string1));
 
     return 0;
 
