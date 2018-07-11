@@ -1,3 +1,8 @@
+/*  Name: William Kreiser
+    Date: 11 July 18
+    Lab4A: Basic I/O Pt1
+*/
+
 #include <stdio.h>
 #include <string.h>
 

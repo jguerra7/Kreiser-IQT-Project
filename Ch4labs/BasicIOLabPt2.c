@@ -1,6 +1,6 @@
 /*  Name: William Kreiser
     Date: 11 July 18
-    Lab4B
+    Lab4B: Basic I/O Pt2
 */
 
 #include <stdio.h>
