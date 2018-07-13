@@ -15,20 +15,19 @@ int main(void)
     /* insert input values and assign to variables here */
     printf("Enter the size of the first leg: ");
     scanf("%5lf", &legA);
-
-    printf("Enter the size of the second leg: ");
-    scanf("%5lf", &legB);
-
     if (legA <= 0)
     {
         legA = 0;
-        printf("Please enter a non-negative size. \n");
+        printf("Please enter a positive number. \n");
         scanf("%5lf", &legA);
     }
+
+    printf("Enter the size of the second leg: ");
+    scanf("%5lf", &legB);
     if (legB <= 0)
     {
         legB = 0;
-        printf("Please enter a non-negative size: ");
+        printf("Please enter a positive number: ");
         scanf("%5lf", &legB);
     }
     /* insert arithmetic hypotenuse calculation here */

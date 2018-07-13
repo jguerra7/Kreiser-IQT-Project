@@ -18,40 +18,39 @@ Relational Operator (e.g., >)
 #define _CRT_NO_SECURE_WARNINGS 1
 
 #include <stdio.h>
-#include <ctype.h>
+#include <inttypes.h>
 #include <string.h>
-typedef __uint32_t uint32_t;
 
-int binary_conversion(int num);
-int bitWiseLeft(int shiftLeft);
+int binary_conversion(uint32_t num);
+int bitWiseLeft(uint32_t shiftLeft);
 
 int main()
 {
-   int num, bin;
+   uint32_t userInput;
    uint32_t bitChecker = 0x01;
    
-   printf("Enter a decimal number: ");
-   fscanf(stdin, "%i", &num);
-   bin = binary_conversion(num);
-   printf("\nThe binary equivalent of %d is %i\n", num, bin);
+   printf("Enter a number: ");
+   fscanf(stdin, "%d", &userInput);
 
-   binary_conversion(bitChecker);
-   bitWiseLeft((int)bitChecker);
-   fprintf(stdout, "%i\n", bitChecker);
+   binary_conversion(userInput);
 
+   fprintf(stdout, "%d\n", binary_conversion(bitChecker)));
+   bitChecker |= 1 << ((sizeof(bitChecker)*8)-1);
+
+    
+    
+    return 0; 
 }
  
-int binary_conversion(int num)
+int binary_conversion(uint32_t num)
 {
     unsigned i;
-    unsigned newBin;
-    for (i = 1 << 31; i > 0; i = i / 2) 
-       newBin += (num & i)? printf("1"): printf("0");
-    printf("%32i", newBin);
+    for (i = 1 << 7; i > 0; i = i / 2) 
+       (num & i)? printf("1"): printf("0");
+    
 }
 
-int bitWiseLeft(int shiftLeft)
-{   int movement;
-    movement |= 1 << ((sizeof(shiftLeft)*8)-1);
-    return movement;
+int bitWiseLeft(uint32_t shiftLeft)
+{
+    shiftLeft |= 1 << ((sizeof(shiftLeft)*8)-1);   
 }   
