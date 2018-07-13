@@ -1,6 +1,6 @@
 /*  Name:William Kreiser
     Date: 13 July 18
-    Project: Lab5A
+    Project: Performance Lab5A
 */
 // #define _CRT_SECURE_NO_WARNINGS
 #include <math.h>
