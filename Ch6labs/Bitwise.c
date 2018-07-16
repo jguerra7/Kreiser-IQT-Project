@@ -18,40 +18,43 @@ Relational Operator (e.g., >)
 #define _CRT_NO_SECURE_WARNINGS 1
 
 #include <stdio.h>
-#include <ctype.h>
-#include <string.h>
-typedef __uint32_t uint32_t;
+#include <inttypes.h>
 
-int binary_conversion(int num);
-int bitWiseLeft(int shiftLeft);
+int binary_conversion(uint32_t num);
 
-int main()
+int main(void)
 {
-   int num, bin;
+   uint32_t userInput;
    uint32_t bitChecker = 0x01;
-   
-   printf("Enter a decimal number: ");
-   fscanf(stdin, "%i", &num);
-   bin = binary_conversion(num);
-   printf("\nThe binary equivalent of %d is %i\n", num, bin);
 
-   binary_conversion(bitChecker);
-   bitWiseLeft((int)bitChecker);
-   fprintf(stdout, "%i\n", bitChecker);
+   printf("Enter a number: ");
+   fscanf(stdin, "%d", &userInput);
+   if (userInput < 0)
+   {
+        userInput *= -1;
+        binary_conversion(userInput);
+   }
+   else if (userInput > 0)
+   {    
+       printf("Your number in binary is: ");
+       binary_conversion(userInput);
+   } 
+      
+   if (bitChecker == 1)
+   {   
+       bitChecker = 0;
+       bitChecker |= 1 << ((sizeof(bitChecker)*8)-1);
+       printf("bitChecker in binary is:  ");
+       binary_conversion(bitChecker);
+   }
 
+   return 0; 
 }
- 
-int binary_conversion(int num)
+
+int binary_conversion(uint32_t num)
 {
     unsigned i;
-    unsigned newBin;
     for (i = 1 << 31; i > 0; i = i / 2) 
-       newBin += (num & i)? printf("1"): printf("0");
-    printf("%32i", newBin);
+       (num & i) ? printf("1") : printf("0");
+    printf("\n");
 }
-
-int bitWiseLeft(int shiftLeft)
-{   int movement;
-    movement |= 1 << ((sizeof(shiftLeft)*8)-1);
-    return movement;
-}   

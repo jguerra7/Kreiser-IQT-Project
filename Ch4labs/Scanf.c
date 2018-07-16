@@ -50,7 +50,7 @@ char fullName()
     char firstName[MAX_BUFFER_SIZE] = {0};
     char middleName[MAX_BUFFER_SIZE] = {0};
     char lastName[MAX_BUFFER_SIZE] = {0};
-
+    
     printf("Please enter your first name: ");
     scanf("%31s", &firstName);
     printf("Please enter your middle name: ");
