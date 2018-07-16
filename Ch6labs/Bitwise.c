@@ -19,38 +19,42 @@ Relational Operator (e.g., >)
 
 #include <stdio.h>
 #include <inttypes.h>
-#include <string.h>
 
 int binary_conversion(uint32_t num);
-int bitWiseLeft(uint32_t shiftLeft);
 
-int main()
+int main(void)
 {
    uint32_t userInput;
    uint32_t bitChecker = 0x01;
-   
+
    printf("Enter a number: ");
    fscanf(stdin, "%d", &userInput);
+   if (userInput < 0)
+   {
+        userInput *= -1;
+        binary_conversion(userInput);
+   }
+   else if (userInput > 0)
+   {    
+       printf("Your number in binary is: ");
+       binary_conversion(userInput);
+   } 
+      
+   if (bitChecker == 1)
+   {   
+       bitChecker = 0;
+       bitChecker |= 1 << ((sizeof(bitChecker)*8)-1);
+       printf("bitChecker in binary is:  ");
+       binary_conversion(bitChecker);
+   }
 
-   binary_conversion(userInput);
-
-   fprintf(stdout, "%d\n", binary_conversion(bitChecker)));
-   bitChecker |= 1 << ((sizeof(bitChecker)*8)-1);
-
-    
-    
-    return 0; 
+   return 0; 
 }
- 
+
 int binary_conversion(uint32_t num)
 {
     unsigned i;
-    for (i = 1 << 7; i > 0; i = i / 2) 
-       (num & i)? printf("1"): printf("0");
-    
+    for (i = 1 << 31; i > 0; i = i / 2) 
+       (num & i) ? printf("1") : printf("0");
+    printf("\n");
 }
-
-int bitWiseLeft(uint32_t shiftLeft)
-{
-    shiftLeft |= 1 << ((sizeof(shiftLeft)*8)-1);   
-}   
