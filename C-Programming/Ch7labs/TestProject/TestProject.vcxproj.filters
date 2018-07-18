@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="switch.c">
+    <ClCompile Include="nestedFlow.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
