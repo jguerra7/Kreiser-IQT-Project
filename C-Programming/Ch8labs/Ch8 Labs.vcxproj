@@ -19,7 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="shadowSequence.c" />
+    <ClInclude Include="englishFunctions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\IQT-C-Programming\exercises\Midterm_Review\UnitTestCodev2.c" />
+    <ClCompile Include="englishFunction.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -15,7 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="shadowSequence.c">
+    <ClInclude Include="englishFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="englishFunction.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\IQT-C-Programming\exercises\Midterm_Review\UnitTestCodev2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
