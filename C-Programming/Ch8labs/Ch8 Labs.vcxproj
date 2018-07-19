@@ -19,10 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="myStringHeader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="reverse.c" />
+    <ClCompile Include="shadowSequence.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

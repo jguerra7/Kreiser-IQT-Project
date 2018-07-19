@@ -15,12 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="myStringHeader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="reverse.c">
+    <ClCompile Include="shadowSequence.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
