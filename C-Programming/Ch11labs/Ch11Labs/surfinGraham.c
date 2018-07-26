@@ -371,69 +371,81 @@ int main(void)
 *                 return a string length longer than zero (0)
 */
 
+//Performance Lab 11C
+//July 26, 2018
+//Robert John Graham III
 char * find_the_word(char * sentence_ptr, char * searchWord_ptr, int * errorCode_ptr)
 {
-	char * returnVal_ptr = NULL;
-	int sentenceLength = 0;
-	int searchLength = 0;
-	int i = 0;
-	int j = 0;
-
-	if (!sentence_ptr)
+	//If sentence_ptr is NULL, *searchWord_ptr is NULL, or	*errorCode_ptr is NULL, NULL is return
+	//Error_ptr is set to a value for sentence or searchWord ptr is NULL
+	if (!sentence_ptr || !searchWord_ptr || errorCode_ptr == NULL)
 	{
-		returnVal_ptr = NULL;
-		*errorCode_ptr = ERROR_NULL_SENTENCE_POINTER;
-	}
-	else if (!searchWord_ptr)
-	{
-		returnVal_ptr = NULL;
-		*errorCode_ptr = ERROR_NULL_SEARCH_POINTER;
-	}
-	else if (!errorCode_ptr)
-	{
-		returnVal_ptr = NULL;
-	}
-	else
-	{
-		sentenceLength = strlen(sentence_ptr);
-		searchLength = strlen(searchWord_ptr);
-		if (searchLength > sentenceLength)
+		if (!sentence_ptr)
 		{
-			returnVal_ptr = NULL;
-			*errorCode_ptr = ERROR_SEARCH_NOT_FOUND;
+			*errorCode_ptr = ERROR_NULL_SENTENCE_POINTER;
 		}
-		else
+		if (!searchWord_ptr)
 		{
-			*errorCode_ptr = ERROR_SEARCH_NOT_FOUND;
-			for (i = 0; i <= (sentenceLength - searchLength); i++)
+			*errorCode_ptr = ERROR_NULL_SEARCH_POINTER;
+		}
+		return NULL;
+	}
+	//These reset ptr need to be used for each iteration
+	char * reset_search_ptr = searchWord_ptr;
+	char * reset_sentence_ptr = sentence_ptr;
+	//int found is treated as boolean value, set to 1 once a match is found
+	int found = 0;
+	//Iterate through the sentence array
+	while (*sentence_ptr != '\0')
+	{
+		//If a character match is found
+		if (*sentence_ptr == *searchWord_ptr)
+		{
+			//First store the sentence and searchWord, in case of need of reset
+			reset_search_ptr = searchWord_ptr;
+			reset_sentence_ptr = sentence_ptr;
+			//Cycle through rest of sentence
+			while (*sentence_ptr != '\0')
 			{
-				if (*(sentence_ptr + i) == *(searchWord_ptr))
+				//If the character doesn't match, cancel this iteration
+				if (!(*sentence_ptr == *searchWord_ptr))
 				{
-					if (searchLength == 1)
-					{
-						returnVal_ptr = (sentence_ptr + i);
-						*errorCode_ptr = ERROR_CODE_SUCCESS;
-						return returnVal_ptr;
-					}
-					else
-					{	//If searchLength greater than 1
-						for (j = 1; j < searchLength; j++)
-						{
-							if (*(sentence_ptr + i + j) != *(searchWord_ptr + j))
-							{
-								break; //We cannot find the word My lord.
-							}
-							else if (j == (searchLength - 1))
-							{
-								returnVal_ptr = (sentence_ptr + i);
-								*errorCode_ptr = ERROR_CODE_SUCCESS;
-								return returnVal_ptr;
-							}
-						}
-					}
+					break;
+				}
+				//If characters do, iterate both ptrs
+				*sentence_ptr++;
+				*searchWord_ptr++;
+				//If search ptr is at the end, then searchWord has been found
+				//Set found to 1
+				//Break loop
+				if (*searchWord_ptr == '\0')
+				{
+					found = 1;
+					break;
 				}
 			}
+			//Check if iteration found the searchWord
+			//If not, set the ptrs for sentence and searchWord back to their original states
+			if (!found)
+			{
+				sentence_ptr = reset_sentence_ptr;
+				searchWord_ptr = reset_search_ptr;
+			}
+			//Match Found!
+			//Set errorcode to SUCCESS and return the sentence_ptr from this position on
+			else
+			{
+				*errorCode_ptr = ERROR_CODE_SUCCESS;
+				return reset_sentence_ptr;
+			}
 		}
+		//Reset searchWord ptr
+		reset_search_ptr = searchWord_ptr;
+		*sentence_ptr++;
+		//Sentence ptr gets iterate and that becomes the new standard
+		reset_sentence_ptr = sentence_ptr;
 	}
-	return returnVal_ptr;
+	//Full iteration was done and searchWord not found
+	*errorCode_ptr = ERROR_SEARCH_NOT_FOUND;
+	return NULL;
 }
