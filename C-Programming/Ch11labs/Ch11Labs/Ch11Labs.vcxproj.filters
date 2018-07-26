@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="surfinGraham.c">
+    <ClCompile Include="ticTacToe.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
