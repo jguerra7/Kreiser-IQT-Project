@@ -373,35 +373,68 @@ int main(void)
 
 char * find_the_word(char * sentence_ptr, char * searchWord_ptr, int * errorCode_ptr)
 {
-	if (sentence_ptr == NULL || strlen(sentence_ptr) < 0)
+	char * returnVal_ptr = NULL;
+	int sentenceLength = 0;
+	int searchLength = 0;
+	int i = 0;
+	int j = 0;
+
+	if (!sentence_ptr)
 	{
-		errorCode_ptr = ERROR_NULL_SENTENCE_POINTER;
+		returnVal_ptr = NULL;
+		*errorCode_ptr = ERROR_NULL_SENTENCE_POINTER;
 	}
-	else if (searchWord_ptr == NULL || strlen(searchWord_ptr) < 0)
+	else if (!searchWord_ptr)
 	{
-		errorCode_ptr = ERROR_NULL_SEARCH_POINTER;
+		returnVal_ptr = NULL;
+		*errorCode_ptr = ERROR_NULL_SEARCH_POINTER;
 	}
-	else if (errorCode_ptr == NULL)
+	else if (!errorCode_ptr)
 	{
-		errorCode_ptr = NULL;
+		returnVal_ptr = NULL;
 	}
 	else
 	{
-		char * returnVal_ptr = *sentence_ptr;
-		int i = 0;
-		int wordFoundCounter = 0;
-
-		returnVal_ptr = strstr(sentence_ptr, searchWord_ptr);
-		if (returnVal_ptr == *searchWord_ptr)
+		sentenceLength = strlen(sentence_ptr);
+		searchLength = strlen(searchWord_ptr);
+		if (searchLength > sentenceLength)
 		{
-			wordFoundCounter++;
-			errorCode_ptr = ERROR_CODE_SUCCESS;
-
+			returnVal_ptr = NULL;
+			*errorCode_ptr = ERROR_SEARCH_NOT_FOUND;
 		}
-		else if (wordFoundCounter == 0)
+		else
 		{
-			errorCode_ptr = ERROR_SEARCH_NOT_FOUND;
+			*errorCode_ptr = ERROR_SEARCH_NOT_FOUND;
+			for (i = 0; i <= (sentenceLength - searchLength); i++)
+			{
+				if (*(sentence_ptr + i) == *(searchWord_ptr))
+				{
+					if (searchLength == 1)
+					{
+						returnVal_ptr = (sentence_ptr + i);
+						*errorCode_ptr = ERROR_CODE_SUCCESS;
+						return returnVal_ptr;
+					}
+
+					else
+					{	//If searchLength greater than 1
+						for (j = 1; j < searchLength; j++)
+						{
+							if (*(sentence_ptr + i + j) != *(searchWord_ptr + j))
+							{
+								break; //We cannot find the word My lord.
+							}
+							else if (j == (searchLength - 1))
+							{
+								returnVal_ptr = (sentence_ptr + i);
+								*errorCode_ptr = ERROR_CODE_SUCCESS;
+								return returnVal_ptr;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
-	return errorCode_ptr;
+	return returnVal_ptr;
 }
