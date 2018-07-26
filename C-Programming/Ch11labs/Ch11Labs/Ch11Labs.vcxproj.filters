@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="conditionalCompilation.c">
+    <ClCompile Include="..\surfinBird.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
