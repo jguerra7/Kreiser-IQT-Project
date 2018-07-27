@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////Kreiser, Burright, Vering, Perez/////////////////////////////////////////
 ///////////////////////////////////////////// PERFORMANCE LAB (I.5.A) 6 /////////////////////////////////////////////
 ////////////////////////////////////////////// MULTI-DIMENSIONAL ARRAYS /////////////////////////////////////////////
 //////////////////////////////////////////////////// "Tic Tac Toe" //////////////////////////////////////////////////
@@ -18,16 +18,13 @@
 // Direct reference to array elements (e.g., myArray[0][1]) is authorized.  In other words, pointer arithmetic
 //     is not mandatory.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#define _CRT_SECURE_NO_WARNINGS 1
 
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int _bool; 
-#define false 0
-#define true 1
- bool;
-
-
+#define ROWS 3
+#define COLUMNS 3
 
 /*
 * FUNCTION:   int print_the_grid(void)
@@ -96,29 +93,119 @@ char did_someone_win(void);
 */
 int what_is_your_play(char currentPlayer, int gridLocation);
 
+void clear_stream(FILE *in);
+
 /* TIC TAC TOE char array */
 char ticTacToeGrid[3][3];
+int check_new = 1;
+char * selection = 0;
 
 int main(void)
-{
-	puts("Good luck to you."); // Remove this
-	
+{ //fancy title
+	printf("==================================================================================\n\n");
 
-	
-		/* PRINT THE LEGEND AND CURRENT STATUS OF THE GAME */
-		print_the_grid();
+	printf("   |''||''|  ||          ' |''||''|                 ' |''||''|\n");
+	printf("      ||    ...    ....       ||     ....     ....       ||      ...     ....\n");
+	printf("      ||     ||  .|   ''      ||    '' .||  .|   ''      ||    .|  '|. .|...||\n");
+	printf("      ||     ||  ||           ||    .|' ||  ||           ||    ||   || ||\n");
+	printf("     .||.   .||.  '|...'     .||.   '|..'|'  '|...'     .||.    '|..|'  '|...'\n\n");
 
-		/* DETERMINE IF THERE ARE NO MORE MOVES LEFT */
-		any_plays_left();
+	printf("==================================================================================\n\n");
+	//declare variables
+	char winner;
+	int playsLeft;
+	char selectionAttempt = 0;
+	char currentPlayer = 'O';
 
-		/* DID SOMEONE WIN?  INFORM THE PLAYERS AND END THE GAME */
-		did_someone_win();
+	do
+	{
+		switch (currentPlayer) //determine which player's turn it is
+		{
+		case 'O':
+		{
+			print_the_grid();//print grid
+			printf("\nPlayer %c make your selection: ", currentPlayer);//tell player to input a grid location
+			_flushall();
 
-		/* OTHERWISE, ALLOW THE NEXT PLAYER TO MAKE A MOVE */
-		what_is_your_play('U', 0);
-	
+			while (scanf(" %d", &selection) != 1)// user input
+			{
+				printf("Invalid integer. Please try again: "); //have user try again if they are incapable of understanding the rules of tic-tac-toe
+				clear_stream(stdin);
+				_flushall();
+			}
+			selectionAttempt = what_is_your_play(currentPlayer, selection);
+			while (selectionAttempt == 0)	// Already taken
+			{
+				print_the_grid();
+				printf("\nPlayer %c make your selection.\n", currentPlayer);//tell player to input a grid location
+				_flushall();
+				while (scanf(" %d", &selection) != 1)
+				{
+					printf("Invalid integer. Please try again: ");//have user try again if they are incapable of understanding the rules of tic-tac-toe
+					clear_stream(stdin);
+					_flushall();
+				}
+				selectionAttempt = what_is_your_play(currentPlayer, selection);
+			}
+			currentPlayer = 'X';
+			break;
+		}
+		case 'X':
+		{
+			print_the_grid();//print grid
+			printf("\nPlayer %c make your selection: ", currentPlayer);//tell player to input a grid location
+			_flushall();
 
-	// NOTE:  Don't forget error checking and input validation along the way.
+			while (scanf(" %d", &selection) != 1)
+			{
+				printf("Invalid integer. Please try again: ");//have user try again if they are incapable of understanding the rules of tic-tac-toe
+				clear_stream(stdin);
+				_flushall();
+			}
+			selectionAttempt = what_is_your_play(currentPlayer, selection);
+			while (selectionAttempt == 0)	// Already taken
+			{
+				print_the_grid();
+				printf("\nPlayer %c make your selection: ", currentPlayer);//tell player to input a grid location
+				_flushall();
+				while (scanf(" %d", &selection) != 1)
+				{
+					printf("Invalid integer. Please try again: ");//have user try again if they are incapable of understanding the rules of tic-tac-toe
+					clear_stream(stdin);
+					_flushall();
+				}
+				selectionAttempt = what_is_your_play(currentPlayer, selection);
+			}
+			currentPlayer = 'O';
+			break;
+		}
+		default:
+			break;
+		}
+		// DID SOMEONE WIN?  INFORM THE PLAYERS AND END THE GAME 
+
+		winner = did_someone_win();
+		if (winner != 0)//check if someone won
+		{
+			printf("\n\n");
+			printf("VICTORY!!!\n\n");//declare and print victory
+			printf(" %c | %c | %c\n", ticTacToeGrid[0][0], ticTacToeGrid[0][1], ticTacToeGrid[0][2]);
+			printf("-----------\n");
+			printf(" %c | %c | %c\n", ticTacToeGrid[1][0], ticTacToeGrid[1][1], ticTacToeGrid[1][2]);
+			printf("-----------\n");
+			printf(" %c | %c | %c\n", ticTacToeGrid[2][0], ticTacToeGrid[2][1], ticTacToeGrid[2][2]);
+			printf("\n");
+			printf("%c WINS!\n", winner);
+		}
+		else
+		{
+			playsLeft = any_plays_left();//print plays left
+		}
+	} while (winner == 0 || playsLeft == 0);
+
+
+	printf("GAME OVER!!!");//declare game over if no one won
+						   // NOTE:  Don't forget error checking and input validation along the way.
 	getchar();
 	getchar();
 	return 0;
@@ -148,23 +235,42 @@ int main(void)
 */
 int print_the_grid(void)
 {
-	char board[3][3] =
+	char ticTacToeLegend[3][3] = //print out the tic-tac-toe legend
 	{
-		{'1', '2', '3'},
-		{'4', '5', '6'},
-		{'7', '8', '9'}
+		{ '1', '2', '3' },
+	{ '4', '5', '6' },
+	{ '7', '8', '9' }
 	};
+	printf("\nLegend\n\n");
+	printf(" %c | %c | %c\n", ticTacToeLegend[0][0], ticTacToeLegend[0][1], ticTacToeLegend[0][2]);
+	printf("-----------\n");
+	printf(" %c | %c | %c\n", ticTacToeLegend[1][0], ticTacToeLegend[1][1], ticTacToeLegend[1][2]);
+	printf("-----------\n");
+	printf(" %c | %c | %c\n", ticTacToeLegend[2][0], ticTacToeLegend[2][1], ticTacToeLegend[2][2]);
 
-	printf("\n\nHere is your playing board. Player One is Os and Player Two is Xs\n");
-	printf("Entering a number 1-9 (then pushing enter) as shown below will use\nthe current Player's turn in that location.\n");
-	printf("\n\n");
-	printf(" %c | %c | %c\n", board[0][0], board[0][1], board[0][2]);
+	if (check_new == 1) //see if the blank board has already been printed
+	{
+		char ticTacToeGrid[3][3] = //print blank board
+		{
+			{ ' ', ' ', ' ' },
+		{ ' ', ' ', ' ' },
+		{ ' ', ' ', ' ' }
+		};
+		printf("\n\nHere is your playing board. Player One is Os and Player Two is Xs\n");
+		printf("Entering a number 1-9 (then pushing enter) as shown below will use\nthe current Player's turn in that location.\n");
+	}
+	else
+	{
+		printf("\nCurrent Board\n"); //print current board
+	}
+	printf("\n");
+	printf(" %c | %c | %c\n", ticTacToeGrid[0][0], ticTacToeGrid[0][1], ticTacToeGrid[0][2]);
 	printf("-----------\n");
-	printf(" %c | %c | %c\n", board[1][0], board[1][1], board[1][2]);
+	printf(" %c | %c | %c\n", ticTacToeGrid[1][0], ticTacToeGrid[1][1], ticTacToeGrid[1][2]);
 	printf("-----------\n");
-	printf(" %c | %c | %c\n", board[2][0], board[2][1], board[2][2]);
-	
-	return 0; // You'll need to change this
+	printf(" %c | %c | %c\n", ticTacToeGrid[2][0], ticTacToeGrid[2][1], ticTacToeGrid[2][2]);
+
+	return 1;
 }
 
 /*
@@ -177,12 +283,32 @@ int print_the_grid(void)
 *
 * NOTES:      This function should count and return the number of remaining 'moves' from the 2D array
 */
+
 int any_plays_left(void)
 {
-	puts("The 2D array was not evaluated."); // Remove this
+	int plays_left = 0; //set plays left counter
+	for (int i = 0; i < ROWS; i++) //start loop for rows
+	{
+		for (int x = 0; x < COLUMNS; x++) //start loop for columns
+		{
+			if (ticTacToeGrid[i][x] != 'X' && ticTacToeGrid[i][x] != 'O') //check for blank grid slot
+			{
+				plays_left++; //increase plays left counter
+			}
+		}
+	}
+	if (plays_left > 0)
+	{
+		printf("\nThere are %d plays left.\n", plays_left); // print the number of plays left
+		return plays_left;
+	}
+	else
+	{
+		return 0;
+	}
 
-	return 0x90C05; // You'll need to change this
 }
+
 
 /*
 * FUNCTION:   char did_someone_win(void)
@@ -197,12 +323,47 @@ int any_plays_left(void)
 *                 Left column, middle column, right column
 *                 Backslash, "Frontslash" (TM pending)
 */
-char did_someone_win(void)
-{	// should probably do a true false statement here
-	
-		// Remove this
 
-	return 0x90C05; // You'll need to change this
+char did_someone_win(void)
+{
+	char test = '?'; //set variable to test wins
+	for (int i = 0; i < 2; i++)
+	{
+		if (i == 0)
+		{
+			test = 'X';
+		}
+		else
+		{
+			test = 'O';
+		}
+		// Horizontal Wins 
+		if (ticTacToeGrid[0][0] == test && ticTacToeGrid[0][1] == test && ticTacToeGrid[0][2] == test)
+			return test;
+		if (ticTacToeGrid[1][0] == test && ticTacToeGrid[1][1] == test && ticTacToeGrid[1][2] == test)
+			return test;
+		if (ticTacToeGrid[2][0] == test && ticTacToeGrid[2][1] == test && ticTacToeGrid[2][2] == test)
+			return test;
+
+		//Vertical Wins
+		if (ticTacToeGrid[0][0] == test && ticTacToeGrid[1][0] == test && ticTacToeGrid[2][0] == test)
+			return test;
+		if (ticTacToeGrid[0][1] == test && ticTacToeGrid[1][1] == test && ticTacToeGrid[2][1] == test)
+			return test;
+		if (ticTacToeGrid[0][2] == test && ticTacToeGrid[1][2] == test && ticTacToeGrid[2][2] == test)
+			return test;
+
+		//Across Wins
+		if (ticTacToeGrid[0][0] == test && ticTacToeGrid[1][1] == test && ticTacToeGrid[2][2] == test)
+			return test;
+		if (ticTacToeGrid[2][0] == test && ticTacToeGrid[1][1] == test && ticTacToeGrid[0][2] == test)
+			return test;
+
+	}
+	// No winner
+	if (!test)
+		printf("Stalemate!\n");
+	return 0;
 }
 
 /*
@@ -221,7 +382,47 @@ char did_someone_win(void)
 */
 int what_is_your_play(char currentPlayer, int gridLocation)
 {
-	puts("No play was made."); // Remove this
+	if (!gridLocation) //check if a grid location was input
+	{
+		return -1;
+	}
+	else
+	{
+		int counter = 1; //set counter
 
-	return 0x90C05; // You'll need to change this}
+		if (gridLocation > 0 && gridLocation <= 9) //check if the input value is between
+		{
+			for (int i = 0; i < ROWS; i++) //cycle through rows
+			{
+				for (int j = 0; j < COLUMNS; j++) //cycle through columns
+				{
+					if (counter == gridLocation) //check if the counter equals the grid location
+					{
+						if (ticTacToeGrid[i][j] == 'X' || ticTacToeGrid[i][j] == 'O') //check if the grid location is either X or O
+						{
+							return 0;
+						}
+						else
+						{
+							ticTacToeGrid[i][j] = currentPlayer; //set grid location to the current player
+							return 1;
+						}
+					}
+					counter++; //increase counter
+				}
+			}
+		}
+		else
+		{
+			return 0;
+		}
+	}
+}
+
+void clear_stream(char *in)
+{
+	int chars;
+	do
+		chars = getc(in);
+	while (chars != '\n' && chars != EOF);
 }
