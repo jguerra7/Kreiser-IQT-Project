@@ -148,6 +148,7 @@ int main(void)
 				selectionAttempt = what_is_your_play(currentPlayer, selection);
 			}
 			currentPlayer = 'X';
+			check_new++;
 			break;
 		}
 		case 'X':
@@ -177,6 +178,7 @@ int main(void)
 				selectionAttempt = what_is_your_play(currentPlayer, selection);
 			}
 			currentPlayer = 'O';
+			check_new++;
 			break;
 		}
 		default:
@@ -196,14 +198,25 @@ int main(void)
 			printf(" %c | %c | %c\n", ticTacToeGrid[2][0], ticTacToeGrid[2][1], ticTacToeGrid[2][2]);
 			printf("\n");
 			printf("%c WINS!\n", winner);
+			getchar();
+			getchar();
+			return 0;
 		}
 		else
 		{
 			playsLeft = any_plays_left();//print plays left
 		}
-	} while (winner == 0 || playsLeft == 0);
-
-
+	} while (playsLeft != 0);
+	if (winner == 0)
+	{
+		printf("\nStalemate!\n");
+		printf(" %c | %c | %c\n", ticTacToeGrid[0][0], ticTacToeGrid[0][1], ticTacToeGrid[0][2]);
+		printf("-----------\n");
+		printf(" %c | %c | %c\n", ticTacToeGrid[1][0], ticTacToeGrid[1][1], ticTacToeGrid[1][2]);
+		printf("-----------\n");
+		printf(" %c | %c | %c\n", ticTacToeGrid[2][0], ticTacToeGrid[2][1], ticTacToeGrid[2][2]);
+		printf("\n");
+	}
 	printf("GAME OVER!!!");//declare game over if no one won
 						   // NOTE:  Don't forget error checking and input validation along the way.
 	getchar();
@@ -359,11 +372,10 @@ char did_someone_win(void)
 		if (ticTacToeGrid[2][0] == test && ticTacToeGrid[1][1] == test && ticTacToeGrid[0][2] == test)
 			return test;
 
+		// No winner
 	}
-	// No winner
-	if (!test)
-		printf("Stalemate!\n");
 	return 0;
+	
 }
 
 /*
