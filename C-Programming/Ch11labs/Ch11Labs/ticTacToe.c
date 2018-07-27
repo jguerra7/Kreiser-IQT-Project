@@ -207,16 +207,7 @@ int main(void)
 			playsLeft = any_plays_left();//print plays left
 		}
 	} while (playsLeft != 0);
-	if (winner == 0)
-	{
-		printf("\nStalemate!\n");
-		printf(" %c | %c | %c\n", ticTacToeGrid[0][0], ticTacToeGrid[0][1], ticTacToeGrid[0][2]);
-		printf("-----------\n");
-		printf(" %c | %c | %c\n", ticTacToeGrid[1][0], ticTacToeGrid[1][1], ticTacToeGrid[1][2]);
-		printf("-----------\n");
-		printf(" %c | %c | %c\n", ticTacToeGrid[2][0], ticTacToeGrid[2][1], ticTacToeGrid[2][2]);
-		printf("\n");
-	}
+	
 	printf("GAME OVER!!!");//declare game over if no one won
 						   // NOTE:  Don't forget error checking and input validation along the way.
 	getchar();
