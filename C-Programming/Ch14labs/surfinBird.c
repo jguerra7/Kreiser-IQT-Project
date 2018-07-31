@@ -147,28 +147,6 @@ int main(void)
 		ERROR_SEARCH_NOT_FOUND, ERROR_CODE_SUCCESS, ERROR_CODE_SUCCESS, \
 		ERROR_CODE_SUCCESS, ERROR_CODE_SUCCESS, ERROR_CODE_SUCCESS, \
 		ERROR_CODE_SUCCESS };
-		
-	/*
-	wordFind test0 = { testInputArray[0], testKeyArray[0], expectedReturnValueArray[0],  expectedErrorCodeArray[0], expectedErrorCodeArray[0] };
-	wordFind test1 = { testInputArray[1], testKeyArray[1], expectedReturnValueArray[1],  expectedErrorCodeArray[1], expectedErrorCodeArray[1] };
-	wordFind test2 = { testInputArray[2], testKeyArray[2], expectedReturnValueArray[2],  expectedErrorCodeArray[2], expectedErrorCodeArray[2] };
-	wordFind test3 = { testInputArray[3], testKeyArray[3], expectedReturnValueArray[3],  expectedErrorCodeArray[3], expectedErrorCodeArray[3] };
-	wordFind test4 = { testInputArray[4], testKeyArray[4], expectedReturnValueArray[4],  expectedErrorCodeArray[4], expectedErrorCodeArray[4] };
-	wordFind test5 = { testInputArray[5], testKeyArray[5], expectedReturnValueArray[5],  expectedErrorCodeArray[5], expectedErrorCodeArray[5] };
-	wordFind test6 = { testInputArray[6], testKeyArray[6], expectedReturnValueArray[6],  expectedErrorCodeArray[6], expectedErrorCodeArray[6] };
-	wordFind test7 = { testInputArray[7], testKeyArray[7], expectedReturnValueArray[7],  expectedErrorCodeArray[7], expectedErrorCodeArray[7] };
-	wordFind test8 = { testInputArray[8], testKeyArray[8], expectedReturnValueArray[8],  expectedErrorCodeArray[8], expectedErrorCodeArray[8] };
-	wordFind test9 = { testInputArray[9], testKeyArray[9], expectedReturnValueArray[9],  expectedErrorCodeArray[9], expectedErrorCodeArray[9] };
-	wordFind test10 = { testInputArray[10], testKeyArray[10], expectedReturnValueArray[10],  expectedErrorCodeArray[10], expectedErrorCodeArray[10] };
-	wordFind test11 = { testInputArray[11], testKeyArray[11], expectedReturnValueArray[11],  expectedErrorCodeArray[11], expectedErrorCodeArray[11] };
-	wordFind test12 = { testInputArray[12], testKeyArray[12], expectedReturnValueArray[12],  expectedErrorCodeArray[12], expectedErrorCodeArray[12] };
-	wordFind test13 = { testInputArray[13], testKeyArray[13], expectedReturnValueArray[13],  expectedErrorCodeArray[13], expectedErrorCodeArray[13] };
-	wordFind test14 = { testInputArray[14], testKeyArray[14], expectedReturnValueArray[14],  expectedErrorCodeArray[14], expectedErrorCodeArray[14] }; 
-	wordFind test15 = { testInputArray[15], testKeyArray[15], expectedReturnValueArray[15],  expectedErrorCodeArray[15], expectedErrorCodeArray[15] };
-	wordFind test16 = { testInputArray[16], testKeyArray[16], expectedReturnValueArray[16],  expectedErrorCodeArray[16], expectedErrorCodeArray[16] };
-	wordFind test17 = { testInputArray[17], testKeyArray[17], expectedReturnValueArray[17],  expectedErrorCodeArray[17], expectedErrorCodeArray[17] };
-	wordFind test18 = { testInputArray[18], testKeyArray[18], expectedReturnValueArray[18],  expectedErrorCodeArray[18], expectedErrorCodeArray[18] };
-	*/
 	
 	/* CALCULATE THE NUMBER OF TESTS */
 	int numTotalTests = sizeof(testInputArray) / sizeof(testInputArray[0]);
@@ -203,7 +181,12 @@ int main(void)
 		/* 2. TEST ERROR CODE */
 		numTestsRun++;
 		printf("\tError Code Test:\t");
-		if (test.errorCode == test.expectedErrorCode)
+		if ((test.errorCode) == NULL)
+		{
+			puts("Pass");
+			numTestsPassed++;
+		}
+		else if (*(test.errorCode) == test.expectedErrorCode)
 		{
 			puts("Pass");
 			numTestsPassed++;

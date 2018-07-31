@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="surfin_bird.h" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="surfinBird.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="surfinBird.c" />
+    <ClInclude Include="shared_structs.h" />
+    <ClInclude Include="surfin_bird.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

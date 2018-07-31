@@ -126,7 +126,7 @@ typedef struct
 	char * inputString;
 	char * searchWordString;
 	char * expectedReturnValue;
-	char * expectedErrorCode;
+	int expectedErrorCode;
 	int * errorCode;
 }wordFind;
 
