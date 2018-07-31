@@ -1,89 +1,7 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////// PERFORMANCE LAB I.5.A-4 ////////////////////////////////////////////////
-/////////////////////////////////////////////// FUNCTION ARGUMENTS //////////////////////////////////////////////////
-///////////////////////////////////////////////// "Surfin' Bird" ////////////////////////////////////////////////////
-/////////////////////////////////////////////// Instructor Solution /////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// The students must define find_the_word() as specified below.
-// Do *NOT* change main() as it contains 56 tests created for find_the_word()
-// char * find_the_word(char * sentence_ptr, char * searchWord_ptr, int * errorCode_ptr)
-// Return Value
-//     char pointer to the first occurrence of searchWord in the null-terminated string found at sentence_ptr
-//     NULL for all other situations (e.g., sentence_ptr is NULL, searchWord_ptr is NULL, errorCode_ptr is NULL)
-// Parameters
-//     sentence_ptr - char pointer to a null-terminated string which represents the sentence to search
-//     searchWord_ptr - char pointer to a null-terminated string which represents the key to search for
-//     errorCode_ptr - int pointer which will store an error code provided by find_the_word (see below)
-// Purpose - Safely (e.g., watch for array overruns, mind the null-terminators) locate the memory address
-//     of the string found at searchWord_ptr within sentence_ptr
-// Requirements
-//     Only Address Arithmetic is permitted to access sentence_ptr and searchWord_ptr.  The test input utilizes
-//         methods other than address arithmetic but that is none of your concern.
-//     Assign your error code to the memory address found in errorCode_ptr.  The error codes are #defined as constant
-//         MACROS at the beginning of main() but are also listed here:
-//         DEFAULT_ERROR_CODE - This is a default value used in testing.  The error code variable is initialized
-//             with this value.  The error code variable is also reset to this value after each test.  The
-//             students will not need to return this code.  It is entirely restricted to testing and debugging.
-//         ERROR_CODE_SUCCESS - This is not an actual error.  Rather, it indicates your function has successfully
-//             completed.  Use this MACRO to indicate success.
-//         ERROR_NULL_SENTENCE_POINTER - This MACRO is to be used when sentence_ptr is NULL.  The return value of 
-//             the function will of course be NULL but the function also needs to store this MACRO in the memory 
-//             address stored in errorCode_ptr.
-//         ERROR_NULL_SEARCH_POINTER - This MACRO is to be used when searchWord_ptr is NULL.  The return value 
-//             of the function will of course be NULL but the function also needs to store this MACRO in the memory 
-//             address stored in errorCode_ptr.
-//         ERROR_SEARCH_NOT_FOUND - This MACRO is to be used when the string located at searchWord_ptr has not
-//             been found inside the string located at sentence_ptr.  The return value of the function will of
-//             course be NULL but the function also needs to store this MACRO in the memory address stored in
-//             errorCode_ptr.
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
 #include <string.h>
 #include "surfin_bird.h"
-
-
-/*
-* FUNCTION:   find_the_word(char * sentence_ptr, char * searchWord_ptr, int * errorCode_ptr)
-*
-* ARGUMENTS:  sentence_ptr is a char pointer to a null-terminated string to search
-*             searchWord_ptr is a char pointer to a null-terminated string to find inside sentence_ptr
-*             errorCode_ptr is an int pointer.  Store your error code at this memory address.
-*
-* RETURNS:	   char pointer to the first occurrence of the searchWord_ptr string found in the
-*                 sentence_ptr string.  The char pointer should be a memory address in the
-*                 sentence_ptr string and this memory address should represent the first 'index'
-*                 of the searchWord_ptr string.  This memory address from the sentence_ptr string
-*                 should dereference to a value equivalent to searchWord_ptr[0].
-*             All other occurences should return NULL.  This includes, but is not limited to, the
-*                 following:
-*                     sentence_ptr is NULL
-*                     searchWord_ptr is NULL
-*                     errorCode_ptr is NULL
-*                     the searchWord_ptr string is not found in the sentence_ptr string
-*
-* NOTES:      This function only utilizes address arithmetic to access information within the
-*                 null-terminated char array found at both sentence_ptr and searchWord_ptr
-*             Only access elements of the char array found at both sentence_ptr and searchWord_ptr
-*                 using address arithmetic (AKA pointer math).  The definition of this function should
-*                 be entirely devoid of the [ and ] characters.  (e.g., sentence_ptr[i] is forbidden)
-*             The only guarantees for the arguments are:
-*                 Any string found at sentence_ptr is null-terminated
-*                 Any string found at searchWord_ptr is null-terminated
-*             There is no guarantee sentence_ptr has an address (return NULL if it's NULL and assign the
-*                 proper error code)
-*             There is no guarantee searchWord_ptr has an address (return NULL if it's NULL and assign the
-*                 proper error code)
-*             There is no guarantee errorCode_ptr has an address (return NULL if it's NULL and assign the
-*                 proper error code)
-*             There is no guarantee the string found at sentence_ptr contains the string found at
-*                 searchWord_ptr (return NULL if the string at searchWord_ptr is not found and assign the
-*                 proper error code)
-*             There is no guarantee the strings found at both sentence_ptr and searchWord_ptr will
-*                 return a string length longer than zero (0)
-*/
-
-char * find_the_word(char * sentence_ptr, char * searchWord_ptr, int * errorCode_ptr);
 
 int main(void)
 {
@@ -137,6 +55,7 @@ int main(void)
 																		   //	puts(testInput25); // DEBUGGING
 	char testInput26[] = { "Sometimes keys are at the beggining of a string." }; // Key: "Sometime"
 	char testInput27[] = { "When you lose an item, you always find it in the last place you look." }; // Key: "look."
+
 	char * testInputArray[] = { \
 		testInput0, testInput1, testInput2, \
 		testInput3, testInput4, testInput5, \
@@ -228,7 +147,29 @@ int main(void)
 		ERROR_SEARCH_NOT_FOUND, ERROR_CODE_SUCCESS, ERROR_CODE_SUCCESS, \
 		ERROR_CODE_SUCCESS, ERROR_CODE_SUCCESS, ERROR_CODE_SUCCESS, \
 		ERROR_CODE_SUCCESS };
-
+		
+	/*
+	wordFind test0 = { testInputArray[0], testKeyArray[0], expectedReturnValueArray[0],  expectedErrorCodeArray[0], expectedErrorCodeArray[0] };
+	wordFind test1 = { testInputArray[1], testKeyArray[1], expectedReturnValueArray[1],  expectedErrorCodeArray[1], expectedErrorCodeArray[1] };
+	wordFind test2 = { testInputArray[2], testKeyArray[2], expectedReturnValueArray[2],  expectedErrorCodeArray[2], expectedErrorCodeArray[2] };
+	wordFind test3 = { testInputArray[3], testKeyArray[3], expectedReturnValueArray[3],  expectedErrorCodeArray[3], expectedErrorCodeArray[3] };
+	wordFind test4 = { testInputArray[4], testKeyArray[4], expectedReturnValueArray[4],  expectedErrorCodeArray[4], expectedErrorCodeArray[4] };
+	wordFind test5 = { testInputArray[5], testKeyArray[5], expectedReturnValueArray[5],  expectedErrorCodeArray[5], expectedErrorCodeArray[5] };
+	wordFind test6 = { testInputArray[6], testKeyArray[6], expectedReturnValueArray[6],  expectedErrorCodeArray[6], expectedErrorCodeArray[6] };
+	wordFind test7 = { testInputArray[7], testKeyArray[7], expectedReturnValueArray[7],  expectedErrorCodeArray[7], expectedErrorCodeArray[7] };
+	wordFind test8 = { testInputArray[8], testKeyArray[8], expectedReturnValueArray[8],  expectedErrorCodeArray[8], expectedErrorCodeArray[8] };
+	wordFind test9 = { testInputArray[9], testKeyArray[9], expectedReturnValueArray[9],  expectedErrorCodeArray[9], expectedErrorCodeArray[9] };
+	wordFind test10 = { testInputArray[10], testKeyArray[10], expectedReturnValueArray[10],  expectedErrorCodeArray[10], expectedErrorCodeArray[10] };
+	wordFind test11 = { testInputArray[11], testKeyArray[11], expectedReturnValueArray[11],  expectedErrorCodeArray[11], expectedErrorCodeArray[11] };
+	wordFind test12 = { testInputArray[12], testKeyArray[12], expectedReturnValueArray[12],  expectedErrorCodeArray[12], expectedErrorCodeArray[12] };
+	wordFind test13 = { testInputArray[13], testKeyArray[13], expectedReturnValueArray[13],  expectedErrorCodeArray[13], expectedErrorCodeArray[13] };
+	wordFind test14 = { testInputArray[14], testKeyArray[14], expectedReturnValueArray[14],  expectedErrorCodeArray[14], expectedErrorCodeArray[14] }; 
+	wordFind test15 = { testInputArray[15], testKeyArray[15], expectedReturnValueArray[15],  expectedErrorCodeArray[15], expectedErrorCodeArray[15] };
+	wordFind test16 = { testInputArray[16], testKeyArray[16], expectedReturnValueArray[16],  expectedErrorCodeArray[16], expectedErrorCodeArray[16] };
+	wordFind test17 = { testInputArray[17], testKeyArray[17], expectedReturnValueArray[17],  expectedErrorCodeArray[17], expectedErrorCodeArray[17] };
+	wordFind test18 = { testInputArray[18], testKeyArray[18], expectedReturnValueArray[18],  expectedErrorCodeArray[18], expectedErrorCodeArray[18] };
+	*/
+	
 	/* CALCULATE THE NUMBER OF TESTS */
 	int numTotalTests = sizeof(testInputArray) / sizeof(testInputArray[0]);
 	//	printf("The length of the test array is: %d \n", sizeof(testInputArray)/sizeof(testInputArray[0])); // DEBUGGING
@@ -236,17 +177,18 @@ int main(void)
 	/* EXECUTE THE TESTS */
 	for (i = 0; i < numTotalTests; i++)
 	{
+		wordFind test = { testInputArray[i], testKeyArray[i], expectedReturnValueArray[i], expectedErrorCodeArray[i], errorCodePointerArray[i] };
 		/* 0. TEST HEADER */
 		printf("\n");
 		printf("************\n");
 		printf("* TEST #%02d *\n", i);
 		printf("************\n");
-		tempReturnValue_ptr = find_the_word(testInputArray[i], testKeyArray[i], errorCodePointerArray[i]);
+		tempReturnValue_ptr = find_the_word(test.inputString, test.searchWordString, test.errorCode);
 
 		/* 1. TEST RETURN VALUE */
 		numTestsRun++;
 		printf("\tReturn Value Test:\t");
-		if (tempReturnValue_ptr == expectedReturnValueArray[i])
+		if (tempReturnValue_ptr == test.expectedReturnValue)
 		{
 			puts("Pass");
 			numTestsPassed++;
@@ -254,14 +196,14 @@ int main(void)
 		else
 		{
 			puts("FAIL!");
-			printf("\t\tExpected pointer:\t%p\n", expectedReturnValueArray[i]);
+			printf("\t\tExpected pointer:\t%p\n", test.expectedReturnValue);
 			printf("\t\tReceived pointer:\t%d\n", tempReturnValue_ptr);
 		}
 
 		/* 2. TEST ERROR CODE */
 		numTestsRun++;
 		printf("\tError Code Test:\t");
-		if (putErrorCodeHere == expectedErrorCodeArray[i])
+		if (test.errorCode == test.expectedErrorCode)
 		{
 			puts("Pass");
 			numTestsPassed++;
@@ -269,15 +211,15 @@ int main(void)
 		else
 		{
 			puts("FAIL!");
-			printf("\t\tExpected error code:\t%d\n", expectedErrorCodeArray[i]);
+			printf("\t\tExpected error code:\t%d\n", test.expectedErrorCode);
 			printf("\t\tReceived error code:\t%d\n", putErrorCodeHere);
-			if (putErrorCodeHere == DEFAULT_ERROR_CODE)
+			if (test.errorCode == DEFAULT_ERROR_CODE)
 			{
 				puts("\t\tError code not even updated!");
 			}
 		}
 
-		putErrorCodeHere = DEFAULT_ERROR_CODE; // Reset error code
+		putErrorCodeHere = DEFAULT_ERROR_CODE; // Reset error code // Reset error code
 	}
 
 	if (numTestsRun)
