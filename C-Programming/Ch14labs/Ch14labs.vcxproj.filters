@@ -18,15 +18,12 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="surfinBird.c">
+    <ClCompile Include="shared_functions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shared_structs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="surfin_bird.h">
+    <ClInclude Include="sharePoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

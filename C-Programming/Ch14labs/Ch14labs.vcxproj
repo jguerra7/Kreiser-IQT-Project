@@ -20,11 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
-    <ClCompile Include="surfinBird.c" />
+    <ClCompile Include="shared_functions.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shared_structs.h" />
-    <ClInclude Include="surfin_bird.h" />
+    <ClInclude Include="sharePoint.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
