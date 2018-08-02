@@ -113,6 +113,7 @@ int main()
 	mane->next_node = NULL;
 
 	int menuSelection = 1;  //Initialized with arbitrary value that will be changed
+	int key = 0;
 	do
 	{
 		printMenu();
@@ -137,20 +138,22 @@ int main()
 			}			
 			case 4:	//Print out a specific student
 			{
-				specific_student(yoder);
+				find_specific_student(yoder);
 				break;
 			}
 			case 5:	//Add additional students to the end
 			{
-				add_new_student(mane, mane->student_number);
+				add_student(yoder);
 				break;
 			}
 			case 6:	//Remove single student from the end
 			{
+				remove_last_student(yoder);
 				break;
 			}	
 			case 7:	//Remove a specific student
 			{
+				remove_specific_student(yoder);
 				break;
 			}
 			case 0:	//Exit the program

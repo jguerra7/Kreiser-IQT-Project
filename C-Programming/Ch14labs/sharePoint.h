@@ -19,36 +19,43 @@
 
 */
 #define _CRT_SECURE_NO_WARNINGS 1
+
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
+#include <stdlib.h>
+
+#define MAX_BUFFER 64
 
 typedef struct _student_data
 {
 	int student_number;
 	char initials[4];
-	char music_artist[64];
-	char dream_car[64];
+	char music_artist[MAX_BUFFER];
+	char dream_car[MAX_BUFFER];
 	struct _student_data * next_node;
 }node;
+
+//This function will allow a new student to be added to the end of the list
+node * add_student(node * head);
+
+//This function will allow the last student to be removed from the program
+node * remove_last_student(node * head);
+
+//This function will remove a specific student from  the program.
+node * remove_specific_student(node * head);
 
 // This function will print out all of the data contained within the student data struct.
 void spillList(node *n, int choice);
 
 //This function will allow the user to select a specific student
-void specific_student(node *n);
-
-//This function will allow the last student to be removed from the program
-void popList(node ** tail);
+void find_specific_student(node *n);
 
 //This function will clear the input stream
 void clear();
 
-//This function will allow a new student to be added to the end of the list
-void add_new_student(node *n, node *student_number);
-
-//This will print the menu that will allow students to be added to the program
+//This will print the menu that the user can do once in the program
 int printMenu();
+
 /*
 1.	Print out all members and all data
 2.	Print out all members and their dream car

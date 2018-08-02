@@ -1,19 +1,17 @@
 #include "sharePoint.h"
 
-int printMenu()
+int printMenu()	//This will print the menu that the user can do once in the program
 {
 	printf("Welcome to the Student Tracker. \n\n");
 	printf("1 - List current students\n2 - List students with dream car \n3 - List student with favorite music artist \
 		\n4 - Print a specific student\n5 - Add a student\n6 - Remove last student\n7 - Remove a specific student\n0 - Exit student tracker\n\n");
 	printf("Please select from the options above: ");
-
-
 	return 0;
 }
 
-void spillList(node *n, int choice)
+void spillList(node *n, int choice)	// This function will print out all of the data contained within the student data struct.
 {
-	if (choice == 1)
+	if (choice == 1)	//Prints entire list of students and their dream car/favorite music artist
 	{
 		printf("\n");
 		while (n != NULL)
@@ -23,7 +21,7 @@ void spillList(node *n, int choice)
 		}
 		printf("\n");
 	}
-	else if (choice == 2)
+	else if (choice == 2)	//Prints the entire list of students and their dream car
 	{
 		printf("\n");
 		while (n != NULL)
@@ -43,84 +41,324 @@ void spillList(node *n, int choice)
 		}
 		printf("\n");
 	}	
-	return 0;
 }
 
-void popList(node ** tail)
-{
-	node * next_node = NULL;
+void find_specific_student(node *n)	//This function will allow the user to select a specific student
+{	
+	int studentPrinted = 0;	
+	printf("Enter the student ID of the student you wish to look up.\n");
 
-	next_node = (*tail)->next_node;
-	free(*tail);
-	*tail = next_node;
-}
-
-void specific_student(node *n)
-{
-	int specificStudent = 0;
-	
-	printf("There are 10 students in this class.\n");
-	printf("Please select a number from 1-10: ");
-	scanf(" %d", &specificStudent);
-	while (n != NULL)
+	while (studentPrinted == 0)
 	{
-		if (n->student_number == specificStudent)
+		int inputCheck = 0;
+		char searchForStudent[5] = { 0 };
+		int specificStudent = 0;	
+
+		fgets(searchForStudent, sizeof(searchForStudent), stdin);
+		specificStudent = atoi(searchForStudent);			
+		node * tempHead = n;
+
+		while (inputCheck == 0)
+		{						
+			if (!strchr(searchForStudent, '\n')) {
+				printf("Bad Input!\n");
+				while (fgetc(stdin) != '\n');
+			}
+			else if (specificStudent < 0 || specificStudent > 50) {
+				printf("You must enter a number 1-50");
+			}
+			else {
+				inputCheck = 1;
+			}						
+		}
+		if (specificStudent > 0)
 		{
-			printf("\nStudent %d\nStudent initials: %s\nDream Car: %s\nFavorite Music Artist: %s\n\n", n->student_number, n->initials, n->dream_car, n->music_artist);
-			break;
+			while (tempHead != NULL)
+			{
+				if (tempHead->student_number == specificStudent)
+				{
+					printf("\nStudent %d\nStudent initials: %s\nDream Car: %s\nFavorite Music Artist: %s\n\n"
+						, tempHead->student_number, tempHead->initials, tempHead->dream_car, tempHead->music_artist);
+					studentPrinted = 1;
+					tempHead = NULL;
+				}
+				else
+				{
+					tempHead = tempHead->next_node;
+				}
+			}
+			if (studentPrinted == 0)
+			{
+				printf("No student with that ID was found.\n");
+			}
+			else
+			{
+				studentPrinted = 1;
+			}
+		}		
+	}	
+}
+
+node * add_student(node * head)
+{
+	node * tempHead = head;
+	int newStudent = 0;
+	int inputCheck = 0;
+	int makeNew = 0;
+	//ask if the user would like to add a new student
+	while (inputCheck == 0)
+	{
+		printf("Would you like to add a new student? Enter 1 for yes, 0 for No ");
+		char inputStr[5] = { 0 };
+
+		fgets(inputStr, sizeof(inputStr), stdin);
+		makeNew = atoi(inputStr);
+
+		if (!strchr(inputStr, '\n'))
+		{
+			printf("Invalid Input!\n");
+			while (fgetc(stdin) != '\n');
+		}
+		else if (makeNew < 0 || makeNew > 1)
+		{
+			printf("You must enter a number 1-100\n");
 		}
 		else
 		{
-			n = n->next_node;
+			inputCheck = 1;
 		}
-	}	
-	return 0;
-}
-
-void clear()
-{
-	char c;
-	while ((c = getchar()) != '\n' && c != EOF) {}
-	return 0;
-}
-
-void add_new_student(node *n, node *student_number)
-{	
-	node * lastStudent = n;
-
-	char lastStudentNumber = student_number;
-	char lastName[32] = { 0 };
-	char dreamCar[64] = { 0 };
-	char musicArtist[63] = { 0 };
-	char initials[4] = { 0 };
-	int number_of_students = 0;
-		
-	printf("\nWhat is the students last name? ");	//New student's last name
-	scanf("%31s", &lastName);
-	clear();
-
-	printf("\nWhat are the students initials? ");	//New student's initials
-	scanf("%3s", &initials);
-	clear();
-
-	printf("\nWhat is the student's dream car? ");	//New student's dream car
-	fgets(dreamCar, 63, stdin);
-
-	printf("\nWhat is the student's favorite music artist?");	//New student's fav music artist;
-	scanf("%s", &musicArtist);	
-	clear();
-	printf("\n");
-	
-	if (lastName && initials && dreamCar && musicArtist)
-	{
-		node * (lastName) = (node*)malloc(sizeof(node));
-		strcpy(lastName->initials, toupper((int)initials));
-		lastName->student_number = lastStudentNumber + 1;
-		strcpy(lastName->dream_car, dreamCar);
-		strcpy(lastName->music_artist, musicArtist);
-		lastStudent->next_node = lastName;
-		lastName->next_node = NULL;
 	}
-	
-	return 0;
+	//if they dont want to add a new student go back to main menu
+	if (makeNew == 0)
+	{
+		return head;
+	}
+	else
+	{
+		node * lastName = (node*)malloc(sizeof(node));
+		inputCheck = 0;
+		//get the user's name
+		while (inputCheck == 0)
+		{
+			char lastName[MAX_BUFFER] = { 0 };
+			printf("Enter the student's last name: ");
+			fgets(lastName, MAX_BUFFER, stdin);			
+			if (!strchr(lastName, '\n'))
+			{
+				printf("Invalid Input!\n");
+				while (fgetc(stdin) != '\n');
+			}
+			else
+			{
+				inputCheck = 1;
+			}
+		}
+		inputCheck = 0;
+		//get the user's initials
+		while (inputCheck == 0)
+		{
+			printf("Enter the student's initials: ");
+			char initials[MAX_BUFFER] = { 0 };
+			fgets(initials, MAX_BUFFER, stdin);
+			if (!strchr(initials, '\n'))
+			{
+				printf("Invalid Input!\n");
+				while (fgetc(stdin) != '\n');
+			}
+			else
+			{
+				inputCheck = 1;
+			}
+			strcpy(lastName->initials, initials);
+		}
+		inputCheck = 0;
+		//get the user's favorite artist
+		while (newStudent == 0)
+		{
+			printf("Enter the student's favorite artist: ");
+			char artist[MAX_BUFFER] = { 0 };
+			fgets(artist, MAX_BUFFER, stdin);
+			if (!strchr(artist, '\n'))
+			{
+				printf("Invalid Input!\n");
+				while (fgetc(stdin) != '\n');
+			}
+			else
+			{
+				inputCheck = 1;
+			}
+			strcpy(lastName->music_artist, artist);
+		}
+		inputCheck = 0;
+		//get the user's dream car
+		while (newStudent == 0)
+		{
+			printf("Enter the student's Dream Car: ");
+			char dreamCar[MAX_BUFFER] = { 0 };
+			fgets(dreamCar, MAX_BUFFER, stdin);
+			if (!strchr(dreamCar, '\n'))
+			{
+				printf("Invalid Input!\n");
+				while (fgetc(stdin) != '\n');
+			}
+			else
+			{
+				inputCheck = 1;
+			}
+			strcpy(lastName->dream_car, dreamCar);
+		}
+		lastName->student_number = tempHead->student_number + 1;		//make sure the student's ID is the next ID number 
+		lastName->next_node = tempHead;					//make the next student = to the current head
+		head = newStudent;										//make the new student the current head
+		return head;
+	}
 }
+
+node * remove_specific_student(node * head)
+{
+	while (1)
+	{
+		node * tempHead = head;
+		int goodInput = 0;
+		int studentToRemove = 0; //stores the number of the student ID the user wants to remove
+		int studentRemoved = 0; //value for whether or not a student was removed - if 0 then there wasnt if !0 then he was
+								//ask if the user would like to add a new student
+		while (goodInput == 0)
+		{
+			printf("Enter the Student ID of the student you would like to print, if you do not know their ID enter 0 to look up by name or exit ");
+			char inputStr[5] = { 0 };
+
+			fgets(inputStr, sizeof(inputStr), stdin);
+			studentToRemove = atoi(inputStr);
+
+			if (!strchr(inputStr, '\n'))
+			{
+				printf("Invalid Input!\n");
+				while (fgetc(stdin) != '\n');
+			}
+			else if (studentToRemove < 0 || studentToRemove > 100)
+			{
+				printf("You must enter a number 1-100\n");
+			}
+			else
+			{
+				goodInput = 1;
+			}
+		}
+		//if they dont want remove a specific student go back to main menu
+		if (studentToRemove == 0)
+		{
+			return head;
+		}
+		//otherwise find the student they want to remove and remove him
+		else
+		{
+			//if the student they want to remove is the current head then use the remove last student function
+			if (head->student_number == studentToRemove)
+			{
+				head = remove_last_student(head);
+				return head;
+			}
+			//otherwise find the student the want to remove and remove him
+			else
+			{
+				while (tempHead != NULL)
+				{
+					//if we find the student we want to remove
+					if (tempHead->student_number == studentToRemove)
+					{
+						node * removeThisStudent = tempHead;	//set a new struct variable to the next student which is the one we want to remove
+						tempHead = head; //reset our linked list back to the beginning
+						printf("Removing student %s", removeThisStudent->initials);
+						//loop through the list again until the next student is equal to the student we want to remove
+						while (tempHead->next_node != removeThisStudent)
+						{
+							tempHead = tempHead->next_node;
+						}
+						//set the current student's next student = the student we want to removes next student
+						tempHead->next_node = removeThisStudent->next_node;
+						//NULLIFY everything in the student we want to remove
+						removeThisStudent->student_number = NULL;
+						strcpy(removeThisStudent->initials, "\0");
+						strcpy(removeThisStudent->music_artist, "\0");
+						strcpy(removeThisStudent->dream_car, "\0");
+						removeThisStudent->next_node = NULL;
+						studentRemoved = 1;
+						return head;
+					}
+					else
+					{
+						tempHead = tempHead->next_node;
+					}
+
+				}
+				if (studentRemoved == 0)
+				{
+					printf("There was no student with this ID in the list\n");
+				}
+			}
+		}
+	}
+
+}
+
+//This function will allow the last student to be removed from the program
+node * remove_last_student(node * head)
+{
+	node * tempHead = head;
+
+	int inputCheck = 0;
+	int inputValue = 0;
+	char removeStudent[5] = { 0 };	
+	//ask if the user would like to add a new student
+	
+	while (inputCheck == 0)
+	{	
+		printf("Would you like to remove the last student?(Enter 1 for yes, 0 for no) \n");
+		fgets(removeStudent, sizeof(removeStudent), stdin);
+		inputValue = atoi(removeStudent);
+
+		if (!strchr(removeStudent, '\n'))
+		{
+			printf("Invalid Input!\n");
+			while (fgetc(stdin) != '\n');
+		}
+		else if (inputValue < 0 || inputValue > 1)
+		{
+			printf("You must select 1 for yes, 0 for no.\n");
+		}	
+		else
+		{
+			inputCheck = 1;
+		}
+	}
+	//if they dont want to remove the last student go back to main menu
+	if (inputValue == 0)
+	{
+		return head;
+	}
+	//otherwise -> remove the head and set the next student to be the head
+	else
+	{
+		//if the current head is null then there is nothing left to remove and print an error!
+		if (head->student_number == NULL)
+		{
+			printf("These users are base users and cannot be deleted\n");
+			return head;
+		}
+		else
+		{
+			head = head->next_node;	//set the head to the next element
+									//nullify all the data in the current head
+			tempHead->student_number = NULL;
+			strcpy(tempHead->initials, "\0");
+			strcpy(tempHead->music_artist, "\0");
+			strcpy(tempHead->dream_car, "\0");
+			tempHead->next_node = NULL;
+			//free(tempHead);	//free the tempHead
+			return head;	//return the head (because its pointing to the next student now
+
+		}
+	}		
+}
+		

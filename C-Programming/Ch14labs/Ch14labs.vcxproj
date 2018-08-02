@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c" />
-    <ClCompile Include="shared_functions.c" />
+    <ClInclude Include="sharePoint.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sharePoint.h" />
+    <ClCompile Include="linkList.c" />
+    <ClCompile Include="shared_functions.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
