@@ -1,0 +1,3 @@
+﻿  C++Lab1a.cpp
+c:\iqtrepo\project\c++\ch1labs\c++lab1a.cpp(62): warning C4018: '<=': signed/unsigned mismatch
+  Ch1labs.vcxproj -> C:\IQTRepo\Project\C++\Ch1labs\Debug\Ch1labs.exe
