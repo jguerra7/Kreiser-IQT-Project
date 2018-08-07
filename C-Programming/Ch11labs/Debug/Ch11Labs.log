@@ -1,0 +1,19 @@
+﻿  texas.c
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(170): warning C4047: 'function': 'int (__cdecl *)(int,int)' differs in levels of indirection from 'int *'
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(170): warning C4024: 'bubble_sort': different types for formal and actual parameter 3
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(171): warning C4047: 'function': 'int (__cdecl *)(int,int)' differs in levels of indirection from 'int *'
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(171): warning C4024: 'bubble_sort': different types for formal and actual parameter 3
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(174): warning C4047: 'function': 'int (__cdecl *)(int,int)' differs in levels of indirection from 'int *'
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(174): warning C4024: 'bubble_sort': different types for formal and actual parameter 3
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(175): warning C4047: 'function': 'int (__cdecl *)(int,int)' differs in levels of indirection from 'int *'
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(175): warning C4024: 'bubble_sort': different types for formal and actual parameter 3
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(178): warning C4047: 'function': 'int (__cdecl *)(int,int)' differs in levels of indirection from 'int *'
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(178): warning C4024: 'bubble_sort': different types for formal and actual parameter 3
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(179): warning C4047: 'function': 'int (__cdecl *)(int,int)' differs in levels of indirection from 'int *'
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(179): warning C4024: 'bubble_sort': different types for formal and actual parameter 3
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(182): warning C4047: 'function': 'int (__cdecl *)(int,int)' differs in levels of indirection from 'int *'
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(182): warning C4024: 'bubble_sort': different types for formal and actual parameter 3
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(183): warning C4047: 'function': 'int (__cdecl *)(int,int)' differs in levels of indirection from 'int *'
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(183): warning C4024: 'bubble_sort': different types for formal and actual parameter 3
+c:\iqtrepo\project\c-programming\ch11labs\ch11labs\texas.c(165): warning C4047: 'initializing': 'int *' differs in levels of indirection from 'int (__cdecl *)(int,int)'
+  Ch11Labs.vcxproj -> C:\IQTRepo\Project\C-Programming\Ch11labs\Ch11Labs\Debug\Ch11Labs.exe
