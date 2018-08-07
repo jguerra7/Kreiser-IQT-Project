@@ -18,37 +18,54 @@
 	
 	etc
 */
-#include <iostream>
-#include <vector>
-
-int subtract(std::vector<int>& input, int count, int difference);
-int add(std::vector<int>& input, int count, int sum);
-int new_numbers(std::vector<int>& input, int count, int temp);
-int printMenu();
+#include "vector_header.h"
+std::vector<int> userInput;
 
 int main()
 {
-	std::vector<int> userInput;
+	char c;
+	int GOOD_INPUT = 0;
 	auto count = 0;
 	auto difference = 0;
 	auto sum = 0;
 	auto temp = 0;
-	char answer;
-	int choice = 99;
+	int choice = 99;;
 	//Allow a user to input a series of numbers, which are stored into a vector
 	std::cout << "Vector Calculator" << std::endl;
 	std::cout << "-----------------" << std::endl;
 
-	std::cout << "How many numbers would you like to enter? ";
-	std::cin >> count;
-
+	while (GOOD_INPUT < 1)
+	{
+		std::cout << "How many numbers would you like to enter? ";
+		std::cin >> count;
+		if (!(count) || (std::cin.get(c)) && !std::isspace(c))
+		{
+			std::cout << "The value must be an integer: " << std::endl;
+			std::cin.clear();
+			GOOD_INPUT = 0;
+		}
+		else
+		{
+			GOOD_INPUT = 1;
+		}
+	}	
 	for (int i = 0; i < count; i++)
 	{
 		std::cout << "Please enter a number: ";
 		std::cin >> temp;
-		userInput.push_back(temp);
+		if (!(temp) || (std::cin.get(c)) && !std::isspace(c))
+		{
+			std::cin.clear();
+			std::cout << "The value must be an integer: " << std::endl;
+			std::cin >> temp;
+		}
+		else
+		{
+			userInput.push_back(temp);			
+		}		
 	}
-	do
+		
+	do  //do while loop to handle the user menu until 0 is passed.
 	{
 		int choice = printMenu();
 		switch (choice)
@@ -75,10 +92,12 @@ int main()
 			}
 			case 5:	//Allow a user to insert a new element at the back of vector
 			{
+				insert_single(userInput);
 				break;
 			}
 			case 6:	//Allow a user to insert, at a specific element, an additonal number
 			{
+				insert_specific_single(userInput);
 				break;
 			}
 			case 7:	//Allow a user to delete a specific element
@@ -98,63 +117,7 @@ int main()
 
 	} while (choice != 0);
 
-	std::cout << "How many numbers would you like to enter? " << std::endl;
-	std::cin >> count;
-	for (int i = 1; i <= count; i++)
-	{
-		std::cout << "Please enter a number: ";
-		std::cin >> temp;
-		userInput.push_back(temp);
-	}
-
 	getchar(); getchar();
 	return 0;
 }
 
-int subtract(std::vector<int>& input, int count, int difference)
-{
-	difference = input[0];
-	for (int i = 1; i < input.size(); i++)
-	{
-		difference -= input[i];
-	}
-	std::cout << "\nThe difference of numbers is: " << difference << "\n\n";	
-
-	return 0;
-}
-
-int add(std::vector<int>& input, int count, int sum)
-{
-	sum = input[0];
-	for (int i = 1; i < input.size(); i++)
-	{
-		sum += input[i];
-	}
-	std::cout << "\nThe sum of numbers is: " << sum << "\n\n";
-	return 0;
-}
-
-int new_numbers(std::vector<int>& input, int count, int temp)
-{
-	input.clear(); count = 0; temp = 0;
-	std::cout << "\nHow many numbers would you like to enter? ";
-	std::cin >> count;
-
-	for (int i = 0; i < count; i++)
-	{
-		std::cout << "Please enter a number: ";
-		std::cin >> temp;
-		input.push_back(temp);
-	}
-	return 0;
-}
-
-int printMenu()
-{
-	int choice = 99;
-	std::cout << "\n1: Add numbers\n2: Subtract numbers\n3: Enter new numbers\n4: Delete last number\n5: "
-				 "Insert number\n6: Insert number at position(x)\n7: Delete specific number\n0: Exit the program" << std::endl;
-	std::cin >> choice;
-
-	return choice;
-}

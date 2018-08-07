@@ -1,5 +1,5 @@
-﻿  vector.cpp
-c:\iqtrepo\project\c++\ch1labs\vector.cpp(36): warning C4101: 'answer': unreferenced local variable
-c:\iqtrepo\project\c++\ch1labs\vector.cpp(117): warning C4018: '<': signed/unsigned mismatch
-c:\iqtrepo\project\c++\ch1labs\vector.cpp(129): warning C4018: '<': signed/unsigned mismatch
+﻿  shared_vector_functions.cpp
+c:\iqtrepo\project\c++\ch1labs\shared_vector_functions.cpp(6): warning C4018: '<': signed/unsigned mismatch
+c:\iqtrepo\project\c++\ch1labs\shared_vector_functions.cpp(18): warning C4018: '<': signed/unsigned mismatch
+c:\iqtrepo\project\c++\ch1labs\shared_vector_functions.cpp(116): warning C4018: '>': signed/unsigned mismatch
   Ch1labs.vcxproj -> C:\IQTRepo\Project\C++\Ch1labs\Debug\Ch1labs.exe
