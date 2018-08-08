@@ -15,16 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="vector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shared_vector_functions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <Text Include="lyrics.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="vector_header.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="lab2A.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
