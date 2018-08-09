@@ -19,10 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="lyrics.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="lab2A.cpp" />
+    <ClCompile Include="Towers of Hanoi\display_tower.cpp" />
+    <ClCompile Include="Towers of Hanoi\towerOfHanoiGame.cpp" />
+    <ClCompile Include="Towers of Hanoi\tower_functions.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

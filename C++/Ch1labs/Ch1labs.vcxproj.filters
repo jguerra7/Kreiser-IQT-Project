@@ -15,12 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="lyrics.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="lab2A.cpp">
+    <ClCompile Include="Towers of Hanoi\towerOfHanoiGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Towers of Hanoi\tower_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Towers of Hanoi\display_tower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
