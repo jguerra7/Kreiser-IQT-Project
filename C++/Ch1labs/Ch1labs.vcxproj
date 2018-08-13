@@ -18,12 +18,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="lyrics.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="lab2A.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{0B03455E-D85F-4D73-B497-682B365FAE52}</ProjectGuid>
