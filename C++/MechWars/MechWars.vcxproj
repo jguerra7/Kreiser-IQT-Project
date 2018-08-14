@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Class Roster\person.cpp" />
     <ClCompile Include="mecha.cpp" />
   </ItemGroup>
   <ItemGroup>

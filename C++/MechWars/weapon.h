@@ -6,8 +6,6 @@ This one is already built for you... feel free to add to it.
 Utilize the damage in either a method (pref in mecha_sub) or main() to determine how muchh damage you do on an enemy mech
 Ensure power is being subtracted by cost after every action. Prevent action if power is too low for action (this can be done via method (pref in mecha sub)  or main)
 */
-
-#pragma once
 class Weapon {
 private:
 	std::string weaponName;
