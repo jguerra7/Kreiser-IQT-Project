@@ -18,7 +18,7 @@
     <ClCompile Include="mecha.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Class Roster\person.cpp">
+    <ClCompile Include="mechaStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
