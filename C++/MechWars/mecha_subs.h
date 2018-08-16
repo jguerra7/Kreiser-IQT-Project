@@ -11,8 +11,9 @@ public:
 		type = "Storm Wind";
 		hitPoints = 2000;
 		power = 200;
-		doubleHit = 0;	
-		critical = 10;	
+		doubleTap = 0;
+		afterburn = 0;
+		critical = 2;	
 		setWeapons();
 	}
 	// Constructor
@@ -40,8 +41,9 @@ public:
 		type = "Juggernaut";
 		hitPoints = 3500;
 		power = 300;
-		doubleHit = 0;
-		critical = 15;
+		doubleTap = 0;
+		afterburn = 0;
+		critical = 2;
 		setWeapons();
 	}
 	// Constructor
@@ -69,8 +71,9 @@ public:
 		type = "Knight";
 		hitPoints = 2000;
 		power = 300;
-		doubleHit = 15;
-		critical = 20;
+		doubleTap = 0;
+		afterburn = 0;
+		critical = 2;
 		setWeapons();
 	}
 	// Constructor
@@ -92,16 +95,15 @@ public:
 class Firebat : public Mecha
 {
 public:
-	int heatWave;
 	// Default Constructor
 	Firebat() {
 		mechaName = "Firebat";
 		type = "Soldier";
 		hitPoints = 2000;
 		power = 300;
-		doubleHit = 0;
-		afterburn = 10;	//will double damage if it hits
-		critical = 20;
+		doubleTap = 0;
+		afterburn = 2;
+		critical = 2;
 		setWeapons();
 	}
 	// Constructor
@@ -129,8 +131,9 @@ public:
 		type = "Boxer";
 		hitPoints = 1500;
 		power = 300;
-		doubleHit = 75;
-		critical = 30;
+		doubleTap = 4;
+		afterburn = 0;
+		critical = 2;
 		setWeapons();
 	}
 	// Constructor
@@ -155,8 +158,9 @@ public:
 		type = "Assassin";
 		hitPoints = 1000;
 		power = 300;
-		doubleHit = 50;
-		critical = 20;
+		doubleTap = 2;
+		afterburn = 0;
+		critical = 2;
 		setWeapons();
 	}
 	// Constructor

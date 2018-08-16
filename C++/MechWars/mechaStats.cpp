@@ -12,8 +12,10 @@ Firebat FB;
 Knight KT;
 Juggernaut JG;
 StormWind SW;
+Mecha *player1_mecha;
+Mecha *player2_mecha;
 
-int mecha_stats_display()
+void mecha_stats_display(int num)
 {
 	//Choice and selection variables
 	int mechaStats = 1;
@@ -34,10 +36,13 @@ int mecha_stats_display()
 			std::this_thread::sleep_for(std::chrono::seconds(2));
 			std::cout << "Would you like to pilot this Mecha? (1 for Yes, 2 for No) ";
 			mechaChoice = get_int_input();
-			if (mechaChoice == 1) {
-				mechaChoice = mechaStats;
+			if (mechaChoice == 1 && num == 1) {
+				player1_mecha = (Firebat *)&FB;
 				mechaSelected = 1;
-				return mechaChoice;
+			}
+			else if (mechaChoice == 1 && num == 2) {
+				player2_mecha = (Firebat *)&FB;
+				mechaSelected = 1;
 			}
 			else {
 				mechaSelected = 0;
@@ -49,10 +54,13 @@ int mecha_stats_display()
 			std::this_thread::sleep_for(std::chrono::seconds(2));
 			std::cout << "Would you like to pilot this Mecha? (1 for Yes and 2 for No) ";
 			mechaChoice = get_int_input();
-			if (mechaChoice == 1) {
-				mechaChoice = mechaStats;
+			if (mechaChoice == 1 && num == 1) {
+				player1_mecha = (Boxer *)&BX;
 				mechaSelected = 1;
-				return mechaChoice;
+			}
+			else if (mechaChoice == 1 && num == 2) {
+				player2_mecha = (Boxer *)&BX;
+				mechaSelected = 1;
 			}
 			else {
 				mechaSelected = 0;
@@ -64,10 +72,13 @@ int mecha_stats_display()
 			std::this_thread::sleep_for(std::chrono::seconds(2));
 			std::cout << "Would you like to pilot this Mecha? (1 for Yes and 2 for No) ";
 			mechaChoice = get_int_input();
-			if (mechaChoice == 1) {
-				mechaChoice = mechaStats;
+			if (mechaChoice == 1 && num == 1) {
+				player1_mecha = (Knight *)&KT;
 				mechaSelected = 1;
-				return mechaChoice;
+			}
+			else if (mechaChoice == 1 && num == 2) {
+				player2_mecha = (Knight *)&KT;
+				mechaSelected = 1;
 			}
 			else {
 				mechaSelected = 0;
@@ -79,10 +90,13 @@ int mecha_stats_display()
 			std::this_thread::sleep_for(std::chrono::seconds(2));
 			std::cout << "Would you like to pilot this Mecha? (1 for Yes and 2 for No) ";
 			mechaChoice = get_int_input();
-			if (mechaChoice == 1) {
-				mechaChoice = mechaStats;
+			if (mechaChoice == 1 && num == 1) {
+				player1_mecha = (Ninja *)&NJ;
 				mechaSelected = 1;
-				return mechaChoice;
+			}
+			else if (mechaChoice == 1 && num == 2) {
+				player2_mecha = (Ninja *)&NJ;
+				mechaSelected = 1;
 			}
 			else {
 				mechaSelected = 0;
@@ -94,10 +108,13 @@ int mecha_stats_display()
 			std::this_thread::sleep_for(std::chrono::seconds(2));
 			std::cout << "Would you like to pilot this Mecha? (1 for Yes and 2 for No) ";
 			mechaChoice = get_int_input();
-			if (mechaChoice == 1) {
-				mechaChoice = mechaStats;
+			if (mechaChoice == 1 && num == 1) {
+				player1_mecha = (Juggernaut *)&JG;
 				mechaSelected = 1;
-				return mechaChoice;
+			}
+			else if (mechaChoice == 1 && num == 2) {
+				player2_mecha = (Juggernaut *)&JG;
+				mechaSelected = 1;
 			}
 			else {
 				mechaSelected = 0;
@@ -109,10 +126,13 @@ int mecha_stats_display()
 			std::this_thread::sleep_for(std::chrono::seconds(2));
 			std::cout << "Would you like to pilot this Mecha? (1 for Yes and 2 for No) ";
 			mechaChoice = get_int_input();
-			if (mechaChoice == 1) {
-				mechaChoice = mechaStats;
+			if (mechaChoice == 1 && num == 1) {
+				player1_mecha = (StormWind *)&SW;
 				mechaSelected = 1;
-				return mechaChoice;
+			}
+			else if (mechaChoice == 1 && num == 2) {
+				player2_mecha = (StormWind *)&SW;
+				mechaSelected = 1;
 			}
 			else {
 				mechaSelected = 0;

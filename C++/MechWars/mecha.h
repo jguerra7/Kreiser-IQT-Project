@@ -9,7 +9,7 @@
 #include "weapon.h"
 
 //This function will display all of the mecha sub class stats before the user selects
-int mecha_stats_display();
+void mecha_stats_display(int num);
 // TODO: You will need to inherit your mecha from the class Mecha first... be sure to override the functions needed.
 
 // Base Classes
@@ -23,10 +23,11 @@ protected:
 	int hitPoints;// indicates total health remaining
 	int power; // indicates power per turn... this value should never be modified after it's set.
 	//The following variables allow for differing levels of attack capabilities
-
-	int doubleHit;	//For use with Boxer mech, allows for chance of double hit to combat low health and lower damage of weapons on boxer
+	int normalAttack;
+	int doubleTap;	//For use with Boxer mech, allows for chance of double hit to combat low health and lower damage of weapons on boxer
 	int afterburn; //For use with Firebat mech, allows for double damage due to serious burn.
 	int critical;	//30% chance to do bonus damage
+	int rapidRecharge; //If all power is consumed, Player must wait until recharge finishes
 public:
 	Mecha() {}
 	// You will want to either override this function to add weapon and specific stats... or just utilize it as is and create a new method inside your sub mecha
@@ -115,6 +116,127 @@ public:
 		}
 		std::cout << std::endl << std::endl;
 	}
+	//When a player uses a weapon, the weapon generates some heat.  If there is no heat sink pool after the attack,
+	//The mech will be shutdown for a turn
+	virtual void powerLost(int powerCost)
+	{
+		power -= powerCost;
+		if (power < 0)
+		{
+			std::cout << "Cannot fire weapons. Rapid recharge commencing" << std::endl;
+			power += 150;
+			rapidRecharge = true;
+		}
+	}
+	//Status check to see if mech is shutdown or not
+	virtual void rechargeOff()
+	{
+		rapidRecharge = !rapidRecharge;
+	}
+	//Status check to see if mech is shutdown or not
+	virtual bool needsRecharging()
+	{
+		return rapidRecharge;
+	}
+	virtual int fireAllWeapons(float damageBonus, float heatBonus)
+	{
+		int damageTotal = 0;
+		int powerConsumedTotal = 0;
 
+		for (auto& item : weaponSet)
+		{
+			
+			if (item.getName() == "Close Range Flamethrower")
+			{
+				flamethrower output;
+				damageTotal += output.fireWeapon();
+			}
+			else if (item.getName() == "Rocket Launcher")
+			{
+				rocketLauncher output;
+				damageTotal += output.fireWeapon();
+			}
+			else if (item.getName() == "Laser Cannon")
+			{
+				laserCannon output;
+				damageTotal += output.fireWeapon();
+			}
+			else if (item.getName() == "Hammer Fist")
+			{
+				hammerFist output;
+				damageTotal += output.fireWeapon();
+			}
+			else if (item.getName() == "Master Sword")
+			{
+				sword output;
+				damageTotal += output.fireWeapon();
+			}
+			else if (item.getName() == "Muramasa")
+			{
+				katana output;
+				damageTotal += output.fireWeapon();
+			}
+			else
+			{
+				damageTotal += item.fireWeapon();
+			}
+			powerConsumedTotal += item.getCost();
+		}
+		damageTotal = (int)(damageBonus * damageTotal);
+		powerConsumedTotal = (int)(heatBonus * powerConsumedTotal);
+		powerLost(powerConsumedTotal);
+		return damageTotal;
+	}
+	virtual int criticalDamage(Weapon& selected)
+	{
+		int damageTotal = 0;
+		int powerCostTotal = 0;
+		for (auto& item : weaponSet)
+		{
+			if (item.getName() == selected.getName())
+			{
+				damageTotal = (item.fireWeapon() * critical);
+				powerCostTotal += item.getCost();
+				if (item.getName() == "Close Range Flamethrower")
+				{
+					std::cout << "Afterburners have ignited!!!!" << std::endl;
+					std::this_thread::sleep_for(std::chrono::seconds(2));
+					damageTotal = (item.fireWeapon() * afterburn);
+				}
+				else if (item.getName() == "Hammer Fist")
+				{
+					std::cout << "Float like a butterfly, sting like Ali." << std::endl;
+					std::this_thread::sleep_for(std::chrono::seconds(2));
+					std::cout << " You've been double tapped" << std::endl;
+					damageTotal = (item.fireWeapon() * doubleTap);
+				}
+			}
+		}
+		powerLost(powerCostTotal);
+		return damageTotal;
+	}
+	virtual int releasePayload(int index)
+	{
+		int result = 0;
+		int chance = 0;
+		int criticalChance = 0;
+		srand(time(NULL));
+		chance = (rand() % 100 + 1);
+		criticalChance = (rand() % 30 + 1);
+		Weapon selected = weaponSet.at(index);
+		//Each chance value will be an int, and will be added to the previous to represent moving from 1 to 100
+		if (chance <= normalAttack)
+		{
+			//Normal attack just uses power and deals damage to opponent mech
+			powerLost(selected.getCost());
+			return selected.fireWeapon();
+		}
+		else if (chance <= (normalAttack + critical))
+		{
+			std::cout << "Critical Damage" << std::endl;
+			std::this_thread::sleep_for(std::chrono::seconds(2));
+			return criticalDamage(selected);
+		}
+	}
 };
 
