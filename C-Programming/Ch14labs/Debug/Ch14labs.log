@@ -1,6 +1,0 @@
-﻿  shared_functions.c
-c:\iqtrepo\project\c-programming\ch14labs\shared_functions.c(212): warning C4047: '=': 'node *' differs in levels of indirection from 'int'
-c:\iqtrepo\project\c-programming\ch14labs\shared_functions.c(281): warning C4047: '=': 'int' differs in levels of indirection from 'void *'
-c:\iqtrepo\project\c-programming\ch14labs\shared_functions.c(344): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
-c:\iqtrepo\project\c-programming\ch14labs\shared_functions.c(353): warning C4047: '=': 'int' differs in levels of indirection from 'void *'
-  Ch14labs.vcxproj -> C:\IQTRepo\Project\C-Programming\Ch14labs\Debug\Ch14labs.exe

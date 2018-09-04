@@ -1,3 +1,0 @@
-﻿  printName.c
-c:\iqtrepo\project\c-programming\ch13labs\printname.c(39): warning C4047: '=': 'char' differs in levels of indirection from 'void *'
-  Ch13Labs.vcxproj -> C:\IQTRepo\Project\C-Programming\Ch13Labs\Debug\Ch13Labs.exe
