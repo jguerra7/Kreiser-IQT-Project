@@ -15,15 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sharePoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <Text Include="lockedFile.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="shared_functions.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="linkList.c">
+    <ClCompile Include="output.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
