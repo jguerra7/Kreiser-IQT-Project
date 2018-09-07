@@ -12,7 +12,6 @@ def studentCode():
     # TODO: Create variables and open file here
     key = 27
     finalString = ""
-    tempChar = 0
 
     # TODO: Read your file
     lyrics = open("C:\IQTRepo\Project\Python\Control_Flow\lyrics.txt", "r")
@@ -21,7 +20,7 @@ def studentCode():
     # C/C++ style: for (int i = 0; i < STR; i++)
     for i in data:
         # Perform XOR here
-        finalString = finalString+chr(ord(i)^key)
+        finalString += chr(ord(i)^key)
 
     # Replace either the return or reassign your unencrypted string to finalString
     lyrics.close()
