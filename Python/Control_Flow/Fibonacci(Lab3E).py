@@ -3,7 +3,7 @@
 # Project: Fibonacci (Lab3E)
 
 """
-1. Write a file that prints out the first 100 numbers in the Fibonacci sequence iteratively
+1. Write a file that prints out the first 100 numbers iteratively
 2. Revisit this lab and create a Fibonacci recursive function
 
 Some additional things you can do are:
@@ -12,7 +12,7 @@ Some additional things you can do are:
     Utilize some Python modules or built in functionality
     Ask user for range of numbers to calculate
 """
-#Recurvise function for the fibonacci sequence
+#Recursive function for the fibonacci sequence
 def recursive_fibo(num):
     if (num <= 1):
         return 1
@@ -22,9 +22,9 @@ def recursive_fibo(num):
 #Iterative version of the fibonacci sequence
 def iterative_fibo(num):
     if (num <= 0):
-        print "Please enter a positive integer"
+       print "Please enter a positive integer"
     elif (num == 1):
-        print num
+        return num
     else:
         x, y = 0, 1
         for i in range(num):
@@ -35,10 +35,13 @@ def iterative_fibo(num):
 def get_user_input():
     userInput = raw_input("Please enter a number: ").rstrip()
     try:
-        userInput =int(userInput)
+        userInput = int(userInput)
     except ValueError:
         print("Try again.\n")
         userInput = get_user_input()
+    #Cannot do negative fibonacci sequence
+    if (userInput <= 0):
+        userInput = abs(userInput)
     return userInput
 
 print "---------------------------------------"
@@ -49,21 +52,10 @@ fibo_number = get_user_input()
 
 #Recursive fibonacci function call
 print "----------Recursive Output-------------"
-for i in range(fibo_number):
+for i in xrange(1, fibo_number + 1):
     print recursive_fibo(i)
 
 #Iterative fibonacci function call
 print "----------Iterative Output-------------"
-for j in range(fibo_number):
+for j in xrange(1, fibo_number + 1):
     print iterative_fibo(j)
-
-
-
-
-
-
-
-
-
-
-
