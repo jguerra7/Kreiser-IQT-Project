@@ -56,15 +56,17 @@ class Parser:
                 break
         return sum(values)
 
-    def parseExponent(self):
-        values = [self.getValue()]
-        while True:
-            self.skipWhitespace()
-            char = self.peek()
-            if char == '*' and char + 1 == '*':
-                self.index += 1
-                values.append(self.parseMultiplication())
-
+    # def parseExponent(self):
+    #     values = [self.parseParenthesis()]
+    #     while True:
+    #         self.skipWhitespace()
+    #         char = self.peek()
+    #         if char == '^':
+    #             self.index += 1
+    #             values.append(self.parseParenthesis())
+    #         else:
+    #             break
+    #     return pow(char - 1, char + 2)
 
     
     def parseMultiplication(self):
@@ -75,6 +77,7 @@ class Parser:
             if char == '*':
                 self.index += 1
                 values.append(self.parseParenthesis())
+                #values.append(self.parseExponent)
             elif char == '/':
                 div_index = self.index
                 self.index += 1
