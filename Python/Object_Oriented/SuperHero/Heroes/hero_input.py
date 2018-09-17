@@ -1,6 +1,49 @@
-# Name:William Kreiser
+# Name: William Kreiser
 # Date: 13 Sep 18
-# Project: Super Hero(Lab5B)
+# Project: Python Classes(Lab5C)
+
+""" This file will contain of the userInput that the program will user to 
+create a new instance of SuperHero class """
+
+import heroClass as hc
+from heroGetSet import newHero
+
+def heroInput():
+
+    new_hero = True
+    num_heroes = inputNumHeroes()
+    hero_counter = 0
+    hero_list = []
+    while (hero_counter < num_heroes):
+        
+        if (new_hero == True):
+            #Takes in hero name
+            hero_name = inputHeroName()
+            newHero(hero_name)
+            #Takes in heroes real name
+            real_name = inputRealName()
+            hero_name.setRealName(real_name)
+            #takes in number of hero powers
+            num_powers = inputNumPowers()
+
+            #Error checking for number of powers
+            if (num_powers < 1):
+                print "Must be a bad ass to not need powers"
+                primaryPow = None
+            elif (num_powers == 1):
+                primaryPow = inputPowers()
+                hero_name.setPrimaryPower(primaryPow)
+            colors = inputColors()     
+            hero_name.setColors(colors)
+            #Creates new hero instance and stores in a list
+            hero_list.append(hero_name)
+            hero_counter += 1
+            print
+        else:
+            new_hero == False
+    
+    for hero in hero_list:
+        hero.printHeroStats()
 
 def inputHeroName():
     inputString = str(raw_input("What is the heroes name: ")).rstrip()

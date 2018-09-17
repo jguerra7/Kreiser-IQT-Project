@@ -1,40 +1,39 @@
-#Base class for the Heroes
+#Base class for the Villians
 
-class Hero():
+class Villian():
     realName = None
     primaryPower = None
     colors = None
+    def __init__(self, villianName):
+        self.villianName = villianName       
 
-    def __init__(self, heroName):
-        self.heroName = heroName        
-
-    #sets super hero's real name
+    #sets super villian's real name
     def setRealName(self, realName):
         self.realName = realName
 
-    #Gets super hero's real name
+    #Gets super villian's real name
     def getRealName(self):
         return self.realName
 
-    #sets super hero's powers
+    #sets super villian's powers
     def setPrimaryPower(self, primaryPower):
         self.primaryPower = primaryPower
     
-    #Gets super hero's powers
+    #Gets super villian's powers
     def getPrimaryPower(self):
         return self.primaryPower
 
-     #sets super hero's colors
-    def setColors(self, colors):
-        self.colors = colors
+    #sets super villian's colors
+    def setColors(self, Colors):
+        self.Colors = Colors
     
-    #Gets super hero's colors
+    #Gets super villian's colors
     def getColors(self):
         return self.colors
     
-    def printHeroStats(self):
+    def printVillianStats(self):
         print
-        print "Hero Name: {}".format(self.heroName)
+        print "Villian Name: {}".format(self.villianName)
         print "Real Name: {}".format(self.realName)
         print "Primary Power: {}".format(self.primaryPower)
         print "Colors: {}".format(self.colors)
