@@ -17,7 +17,9 @@ def villianTitle():
 class Pyro(Villian):
     realName = "Sparky"
     primaryPower = "Fire-bending"
-    colors = "Flame-colored"
+    secondaryPower = None
+    health = 150
+    damage = 30
 
     def __init__(self, villianName):
         Villian.__init__(self, villianName)
@@ -29,7 +31,9 @@ class Pyro(Villian):
 class Samurai(Villian):
     realName = "Mr. Roboto"
     primaryPower = "Adamantium Sword"
-    colors = "Silver and Black"
+    secondaryPower = None
+    health = 500
+    damage = 35 
 
     def __init__(self, villianName):
         Villian.__init__(self, villianName)
@@ -41,7 +45,9 @@ class Samurai(Villian):
 class Mystique(Villian):
     realName = "Raven"
     primaryPower = "Shape-Shifting"
-    colors = "All of the colors"
+    secondaryPower = "Extreme Agility"
+    health = 150
+    damage = 30
 
     def __init__(self, villianName):
         Villian.__init__(self, villianName)
@@ -53,7 +59,9 @@ class Mystique(Villian):
 class Phoenix(Villian):
     realName = "Jean Grey"
     primaryPower = "Limitless Telekinetic Energy"
-    colors = "Burgundy"
+    secondaryPower = "Flying"
+    health = 200
+    damage = 75
 
     def __init__(self, villianName):
         Villian.__init__(self, villianName)

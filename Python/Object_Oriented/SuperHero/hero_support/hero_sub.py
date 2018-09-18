@@ -1,8 +1,6 @@
 from heroClass import Hero
 import heroClass as hc
-import random
 
-hero_list = []
 def heroTitle():
     print r""" /$$   /$$                                                         /$$$$$$            /$$ /$$       /$$
 | $$  | $$                                                        /$$__  $$          |__/| $$      | $$
@@ -16,7 +14,9 @@ def heroTitle():
 class Wolverine(Hero):
     realName = 'Logan'
     primaryPower = 'Super Healing'
-    colors = 'Black and Yellow'
+    secondaryPower = 'Adamantium Claws'
+    health = 500
+    damage = 50
 
     def __init__(self, heroName):
         Hero.__init__(self, heroName)
@@ -29,8 +29,11 @@ class Wolverine(Hero):
         
 class Cyclops(Hero):
     realName = 'Scott'
-    primaryPower = 'Kinetic Eye Fungus'
-    colors = 'Black and Red'
+    primaryPower = 'Kinetic Eye Blast'
+    secondaryPower = None
+    health = 150
+    damage = 30
+
     def __init__(self, heroName):
         Hero.__init__(self, heroName)
         self.heroName = heroName
@@ -42,7 +45,10 @@ class Cyclops(Hero):
 class Storm(Hero):
     realName = 'Storm'
     primaryPower = 'Weather Wizardry'
-    colors = 'White'
+    secondaryPower = 'Flying'
+    health = 125
+    damage = 25
+
     def __init__(self, heroName):
         Hero.__init__(self, heroName)
         self.heroName = heroName
@@ -54,7 +60,9 @@ class Storm(Hero):
 class Iceman(Hero):
     realName = 'Jack Frost'
     primaryPower = 'Deep Freeze'
-    colors = 'Blue'
+    secondaryPower = 'Ice Armor'
+    health = 150
+    damage = 30
 
     def __init__(self, heroName):
         Hero.__init__(self, heroName)
