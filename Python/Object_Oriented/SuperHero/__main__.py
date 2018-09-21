@@ -1,26 +1,30 @@
 # Name: William Kreiser
 # Date: 13 Sep 18
-# Project: Python Class(Lab2B)
+# Project: Python Class(Lab5C)
 
-"""Lab 5B: Your First Python Class
-Instructions
-Create a very simple super hero class. Some attributes you will need:
+"""Update your hero class lab with the following additions:
 
-Hero Name
-Real Name
-Power(s)
-Colors
-etc
-
-Requirements
+Create a generic Person class
+Create a Hero class that inherits from Person
+Refactor code where needed
+Utilize proper Encapsulation
+Include user input
+Use getters and setters
+Requirments
 Adhere to PEP8 and utilize proper and efficient code
+Input validation
 Utilize a __init__()
 Ensure variables are correct type (class vs instance variables)
-Utilize methods:
-Start to format your class using getters and setters
-Create an instance of your class. Populate it with data utilzing a init and/or getters and setters
+Utilize methods for getters and setters
+Create an few instances of your class. Populate it with data utilzing a init and/or getters and setters
+Split your classes into seperate files and import them properly
 Additional:
-Begin using encapsulation techniques"""
+Expand this program into a game or larger program. Some possible ideas:
+Hero vs Villan
+Battle Royal
+Guess that Hero
+etc"""
+
 from SuperHero import hero_support, villian_support
 from hero_support import hero_sub as hs
 from villian_support import villian_sub as vs
