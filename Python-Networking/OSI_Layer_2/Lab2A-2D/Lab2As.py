@@ -13,12 +13,12 @@ s.listen(5)
 
 c,a = s.accept()
 print a
-
 data = []
-data[0] = c.recv(1024)
+data = c.recv(1024)
 print "String to reverse"
-print data[0]
 
-resp = data[0].reverse()
-c.send("Gnirts Desrever")
-c.send(data)
+resp = data[::-1]
+
+c.send(resp)
+
+s.close()
