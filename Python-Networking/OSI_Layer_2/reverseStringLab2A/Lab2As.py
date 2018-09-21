@@ -16,7 +16,7 @@ print a
 data = []
 data = c.recv(1024)
 print "String to reverse"
-
+print data
 resp = data[::-1]
 
 c.send(resp)
