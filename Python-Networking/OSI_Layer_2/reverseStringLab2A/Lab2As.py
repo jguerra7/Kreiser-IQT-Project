@@ -10,15 +10,16 @@ from socket import *
 s = socket(AF_INET, SOCK_STREAM)
 s.bind(("",15000))
 s.listen(5)
+while True:
+    c,a = s.accept()
+    print a
+    data = []
+    data = c.recv(1024)
+    print "String to reverse"
+    print data
+    resp = data[::-1]
+    c.send(resp)
 
-c,a = s.accept()
-print a
-data = []
-data = c.recv(1024)
-print "String to reverse"
-print data
-resp = data[::-1]
 
-c.send(resp)
 
 s.close()
