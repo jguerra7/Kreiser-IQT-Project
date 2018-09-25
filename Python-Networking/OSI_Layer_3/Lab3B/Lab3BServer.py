@@ -32,9 +32,11 @@ while True:
         print newAddr
 
         r = socket(AF_INET, SOCK_DGRAM)
-        r.sendto(returnString, addr)
-    except 
-        print "Socket error"
+        r.sendto(returnString, newAddr)
+        r.close()
+    except (KeyboardInterrupt): 
+        print "Exiting..."
+        break
         
 
 s.close()
