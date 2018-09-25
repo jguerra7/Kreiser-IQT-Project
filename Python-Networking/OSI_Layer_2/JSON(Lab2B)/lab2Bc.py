@@ -10,7 +10,6 @@ Write a UDP sender that takes a dictionary, turns it into a JSON string, and sen
 """
 
 s = socket(AF_INET, SOCK_DGRAM)
-msg = {}
 msg = { '1' : 'Hello World', '2' : 'Goodbye World', '3' : 'End of World'}
 #json.dumps() saves the msg
 loaded_msg = json.dumps(msg)

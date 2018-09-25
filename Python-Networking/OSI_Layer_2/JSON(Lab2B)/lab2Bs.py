@@ -10,11 +10,10 @@ Validate by printing the type of your dictionary variable (build in IPv4).
 """
 
 s = socket(AF_INET, SOCK_DGRAM)
-s.bind(("",10000))
+s.bind(("", 15000))
 
 while True:
     data, addr = s.recvfrom(1024)
-
     print("Received data from: {}".format(addr))
     print("Received data type: {}".format(type(data)))
     print("Received data: {}".format(data))
@@ -24,8 +23,4 @@ while True:
     print("Converted data: {}\n\n".format(json_data))
 
     resp = "AH AH AH!!! YOU DIDN'T SAY THE MAGIC WORD!!!"
-    s.sendto(resp,addr)
-
-    
-
-    
+    s.sendto(resp,addr)  

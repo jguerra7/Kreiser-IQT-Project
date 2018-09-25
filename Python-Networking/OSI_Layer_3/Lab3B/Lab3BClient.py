@@ -16,17 +16,17 @@ from socket import *
 
 #Socket setup
 s = socket(AF_INET, SOCK_DGRAM)
-addr = s.getsockname()
-port = addr[1] +1
 
 #Create a string a send it
-senderStr = "He who stands on toilet is high on pot."
-s.sendto(senderStr, (addr, port))
+senderStr = "Confucius says He who stands on toilet is high on pot."
+print senderStr
+s.sendto(senderStr, ("192.168.31.132", 10000))
+addr = s.getsockname()
 s.close()
 
 #open a new socket to receive data back
 s = socket(AF_INET, SOCK_DGRAM)
-s.bind((addr[0], port))
+s.bind((addr[0], addr[1] +1))
 
 resp, addr = s.recvfrom(1024)
 print resp
