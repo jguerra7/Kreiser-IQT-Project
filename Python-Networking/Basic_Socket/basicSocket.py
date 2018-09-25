@@ -49,7 +49,7 @@ def udpServer():
     s.bind(("",10000))
 
     while True:
-        data, addr = s.recvfrom(1024, ("localhost",10000))
+        data, addr = s.recvfrom(1024)
         print data
         print addr
         resp = "AH AH AH!!! YOU DIDN'T SAY THE MAGIC WORD!!!"
