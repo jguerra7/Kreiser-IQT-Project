@@ -33,8 +33,8 @@ while True:
 
         r = socket(AF_INET, SOCK_DGRAM)
         r.sendto(returnString, addr)
-    except 
-        print "Socket error"
-        
+    except (KeyboardInterrupt):
+        print "Exiting"
+        break
 
 s.close()
