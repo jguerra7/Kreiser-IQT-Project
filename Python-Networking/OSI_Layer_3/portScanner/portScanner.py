@@ -1,3 +1,7 @@
+#   Name: Will Kreiser
+#   Date: 25 Sep 18
+#   Project: Bonus - Port Scanner
+
 from socket import *
 import subprocess
 import sys
