@@ -13,7 +13,6 @@ while True:
     sendmessage = raw_input("Would you like to send a message(Y/N)? ").rstrip()
 
     if sendmessage.upper() == 'Y':
-
         try:
             #client socket 1
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -48,6 +47,7 @@ while True:
             print msgU1
             print dataU1   
 
+            #close our sockets
             s.close()
             t.close()
             u.close()       
