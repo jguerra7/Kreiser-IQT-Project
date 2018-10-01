@@ -7,6 +7,7 @@ Create a program using a Raw UDP socket in Python with an IPv4 header.
 """
 
 import socket, struct
+
 s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_UDP)
 
 sourceIP = '192.168.31.131'
