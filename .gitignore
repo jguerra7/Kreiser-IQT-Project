@@ -20,7 +20,8 @@
 *.includecache
 *.cxx
 *.bin
-
+*.jpg
+*.jpeg
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -279,9 +280,11 @@ __pycache__/
 Debug\
 x64\
 gmock-1.7.0\
-*/Makefile
+*/*/*/Makefile
 */*/*/CMakeFiles
-
+Assembly/demos
+Assembly/imgs
+Assembly/handouts
 # Compiled source #
 ###################
 *.com
