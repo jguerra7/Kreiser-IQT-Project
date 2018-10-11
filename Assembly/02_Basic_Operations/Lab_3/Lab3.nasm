@@ -1,3 +1,9 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; William Kreiser
+; 11 Oct 18
+; Lab3
+;;;;;;;;;;;;;;;;;;;;;;;;;; 
+
 bits 64
 
 global first_func, second_func, third_func, fourth_func, fifth_func
