@@ -10,6 +10,16 @@
 *.exe
 *.txt
 *.cmake
+*.png
+*.gif
+*.sh
+*.pptx
+*.inc
+*.md
+*.make
+*.includecache
+*.cxx
+*.bin
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -270,7 +280,7 @@ Debug\
 x64\
 gmock-1.7.0\
 */Makefile
-*/CMakeFules/
+*/*/*/CMakeFiles
 
 # Compiled source #
 ###################
@@ -304,13 +314,3 @@ gmock-1.7.0\
 *.vcxproj
 *.vcxproj.filters
 *.pyc
-*.png
-*.gif
-*.sh
-*.pptx
-*.inc
-*.md
-*.make
-*.includecache
-*.cxx
-*.bin
