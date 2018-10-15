@@ -19,7 +19,7 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    push rcx
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -27,7 +27,7 @@ first_func:
     pop rbp
     ret
 
-second_func
+second_func:
     push rbp
     mov rbp, rsp
     mov rcx, value
@@ -51,7 +51,17 @@ second_func
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    push rdx
+    push rax
+    push rcx
+    xor rdx, rdx    
+    mov rax, [rcx] ;The bracket allow me to dereference rcx and use the value
+    mov rcx, 10
+    div rcx
+    pop rcx
+    mov [rcx], rax ;Move the value of rcx into rax
+    pop rax
+    pop rdx    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
