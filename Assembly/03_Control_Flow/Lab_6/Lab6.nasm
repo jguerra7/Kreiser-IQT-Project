@@ -27,9 +27,9 @@ first_func:
     push rax
     popf
     pop rax
-    ;mov al, -5
+    ;mov al, -5 ;This works for all 3 functions
     ;add al, 132  
-    ;xor eax, eax
+    ;xor eax, eax 
     ;sub eax, 1 
     ; stc ; setting the carry flag manually
     ; clc ; clear the carry flag
@@ -53,7 +53,7 @@ second_func:
     push ax
     popf
     pop ax
-    ; mov al, -5
+    ; mov al, -5 ;This works for all 3 functions
     ; add al, 132
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
@@ -71,18 +71,16 @@ third_func:
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     pushf
-    mov ax, 2048
+    mov ax, 2048 
     mov ax, 1
     ; mov rax, bits [11] 
     push ax
     popf
     pop ax
-    ; mov al, -5
+    ; mov al, -5 ;This works for all 3 functions
     ; add al, 132
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     pop rbp
     ret
-
-
