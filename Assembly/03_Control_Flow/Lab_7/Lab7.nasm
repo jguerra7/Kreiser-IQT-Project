@@ -17,7 +17,19 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    .compare_val:
+        cmp rdi, rsi
+        jl .less       
+        je .equal
+        mov rax, 1
+        jmp .finish
+    .less:
+        mov rax, -1
+        jmp .finish
+    .equal:
+        mov rax, 0
+        jmp .finish
+    .finish:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -50,7 +62,13 @@ second_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    xor rax, rax
+    xor rcx, rcx
+    mov rcx, rsi
+    sum:
+        add ax, [rdi + rcx * 4]
+        loop sum
+        add ax, [rdi]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -74,7 +92,15 @@ third_func:
 ;  HINT: 
 ;  Just like with second_func, except now we are dealing with chars
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    xor rax, rax
+    xor cl, cl
+    .start:
+        cmp cl, [rdi + rax]
+        je .finish
 
+        inc rax
+        jmp .start
+    .finish:  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
