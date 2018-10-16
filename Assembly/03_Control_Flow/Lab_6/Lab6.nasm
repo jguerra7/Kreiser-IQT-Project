@@ -1,3 +1,7 @@
+; Name: William Kreiser
+; Date: 15 Oct 18
+; Project: Lab6
+
 bits 64
 
 global first_func, second_func, third_func
@@ -17,7 +21,18 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    or rax, rax
+    pushf
+    mov rax, 1
+    push rax
+    popf
+    pop rax
+    ;mov al, -5
+    ;add al, 132  
+    ;xor eax, eax
+    ;sub eax, 1 
+    ; stc ; setting the carry flag manually
+    ; clc ; clear the carry flag
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,7 +47,14 @@ second_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    pushf
+    mov ax, 2048
+    ; mov rax, bits [11] 
+    push ax
+    popf
+    pop ax
+    ; mov al, -5
+    ; add al, 132
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -48,7 +70,15 @@ third_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    pushf
+    mov ax, 2048
+    mov ax, 1
+    ; mov rax, bits [11] 
+    push ax
+    popf
+    pop ax
+    ; mov al, -5
+    ; add al, 132
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
