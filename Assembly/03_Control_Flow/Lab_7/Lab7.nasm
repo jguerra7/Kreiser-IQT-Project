@@ -1,3 +1,6 @@
+; Name: William Kreiser
+; Date: 16 Oct 18
+; Project: Lab7
 bits 64
 
 global first_func, second_func, third_func
@@ -92,7 +95,6 @@ third_func:
 ;  HINT: 
 ;  Just like with second_func, except now we are dealing with chars
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    xor rax, rax
     xor cl, cl
     .start:
         cmp cl, [rdi + rax]
