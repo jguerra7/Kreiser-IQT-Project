@@ -1,3 +1,6 @@
+; Name: William Kreiser
+; Date: 17 Oct 18
+; Project: Lab8
 bits 64
 
 global first_func, second_func, third_func
@@ -5,8 +8,6 @@ global first_func, second_func, third_func
 first_func:
     push rbp
     mov rbp, rsp
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  Two values have been provided,
 ;  a value (consisting of a single
@@ -20,21 +21,21 @@ first_func:
 ;  set the buffer pointed to by RDI
 ;  to the value stored in RSI.
 ;
-;
 ;  RSI = value consisting of single byte
 ;  RDI = pointer to buffer (needs initialized)
 ;  RDX = number of bytes 
 ;  
-;
-;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+    xor rax, rax
+    mov rcx, rdx
+    mov rax, rsi
+    rep stosb    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     pop rbp
+    mov rdi, rax
     ret
 
 second_func:
@@ -54,20 +55,18 @@ second_func:
 ;
 ;  RDX = size of both buffers
 ;  RSI = pointer to source buffer
-;  RDI = pointer to destination buffer
-;
+;  RDI = pointer to destination buffer;
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+    xor rax, rax
+    mov rcx, rdx
+    rep movsb
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     pop rbp
     ret
-
-
 
 third_func:
     push rbp
@@ -89,17 +88,19 @@ third_func:
 ;  This one may be a bit more challanging. You will
 ;  have to think outside the box. If using string instructions...
 ;  it should take you at least 5-6 lines minimum.
-;  - Don't forget to set RCX!
-;  
+;  - Don't forget to set RCX!;  
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+    xor rax, rax
+    mov rdx, 50
+    mov rcx, rdx
+    repne scasb
+    sub rdx, rcx
+    dec rdx
+    mov rax, rdx
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     pop rbp
     ret
-
-
