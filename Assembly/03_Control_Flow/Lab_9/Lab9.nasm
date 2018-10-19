@@ -58,16 +58,14 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    xor rcx, rcx
-    xor rdx, rdx
-    sub rsp, 0x28
-    mov rcx, mystr
-    mov 
-    mov edi, mystr
+    xor rax, rax
+    push rdi
+    mov rdi, rsi
     call strlen
-
-    mov rx, edi
-
+    mov rsi, rax
+    pop rdx
+    xor rax, rax
+    call rdx
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -82,7 +80,21 @@ third_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    xor rax, rax ;next
+    xor rcx, rcx
+    xor rdx, rdx ;first
+    mov rsi, 1 ;second
+    dec rdi
 
+
+    .continue:
+        mov rax, rdx ;next = first
+        add rax, rsi ;next += second
+        mov rdx, rsi ;first = second
+        mov rsi, rax ;second = next
+        inc rcx ;i++
+        cmp rcx, rdi ; i < N
+        jb .continue
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
