@@ -1,3 +1,7 @@
+; Name: William Kreiser
+; Date: 19 Oct 18
+; Project: Monday (Windows)
+
 bits 64
 
 global first_func, second_func, third_func
@@ -33,12 +37,19 @@ second_func:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     xor rax, rax
     cpuid
-    mov [rdi], ebx
-    mov [rdi+4], edx
-    mov [rdi+8], ecx
+
+    mov eax, ebx
+    stosd
+
+    mov eax, edx
+    stosd
+
+    mov eax, ecx
+    stosd
+    ;mov [rdi], ebx
+    ;mov [rdi+4], edx
+    ;mov [rdi+8], ecx
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
-
-
