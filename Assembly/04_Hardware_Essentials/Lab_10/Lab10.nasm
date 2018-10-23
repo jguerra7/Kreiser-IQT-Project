@@ -12,7 +12,9 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    rdtsc           ;64-Bit value returned EDX[First Half], EAX[Second Half]
+    shl rdx, 32     ;rdx high bits were cleared by rdtsc, shift left by 32
+    or rax, rdx     ; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -29,7 +31,11 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    xor rax, rax
+    cpuid
+    mov [rdi], ebx
+    mov [rdi+4], edx
+    mov [rdi+8], ecx
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
