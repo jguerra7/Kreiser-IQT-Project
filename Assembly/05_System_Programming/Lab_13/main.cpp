@@ -341,9 +341,9 @@ int main(int argc, char** argv)
     // ########## TEST CASES ##########
     // #### UNCOMMENT AS NEEDED #######
     find_largest_test();
-    //string_tests();
-    //mem_tests();
-    //test_walk_list();
+    string_tests();
+    mem_tests();
+    test_walk_list();
     //printf("Preparing to run Quicksort tests (BONUS)\n");
     //sort_tests(ex_qsort);
     //printf("Preparing to run Insertion Sort tests (BONUS)\n");
