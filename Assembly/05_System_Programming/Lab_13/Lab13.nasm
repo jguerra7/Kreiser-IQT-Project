@@ -21,7 +21,7 @@ find_largest:
 
 	
 	;mov edi, [ebp + 8]		;edi now contains the buffer of integers
-	;mov ecx, [ebp + 12]		;ecx now contains the number of elements in buffer
+	;mov ecx, [ebp + 12]	;ecx now contains the number of elements in buffer
 	mov rcx, rsi
 	xor eax, eax			;Zero eax
 
@@ -87,8 +87,8 @@ ex_memset:
 	xor rax, rax
 	xor rcx, rcx
 
-    mov     rcx, rdx ; size_t num
-    mov     rax, rsi
+    mov     rcx, rdx 	; size_t num
+    mov     rax, rsi	;move the value into rax
     rep     stosb
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
@@ -131,13 +131,17 @@ ex_memcmp:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	xor rcx, rcx
-	mov rcx, rdx
+	;rdi : 1st buffer
+	;rsi : 2nd buffer
+	;rdx : length of buffer
+
+	xor rcx, rcx	;zero rcx
+	mov rcx, rdx	;move length into rcx
 
 	cld				;Clear direction flag	
-	rep cmpsb		
-	je .set
-	jmp .end
+	rep cmpsb		;repeatedly compare rsi and rdi, increment the pointer and update flags
+	je .set			;jump if equal to .set and set rax
+	jmp .end		;else jump to .end
 
 	.set:
 		xor rax, rax
@@ -166,12 +170,12 @@ ex_strchr:	;char *strchr(const char *str, int c)
 	mov rax, rsi
 	repne scasb 	;repeat while not equal using scasb
 					;scasb is used to compare string byte by byte
-	jne .set
+	jne .set		;jump if not equal to .set
 	mov rax, rdi	;Move rdi into rax
 	dec rax			;dec rax by one byte
-	jmp .end
+	jmp .end		;jump to .end
 	.set:
-	mov rax, 0
+		mov rax, 0	;set rax equal to 0
 	.end:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -220,20 +224,18 @@ ex_strcpy:
 	;rsi is source string
 	xor rax, rax		
 	xor r8, r8 		;zero out registers for transfers
-    mov r8, rdi
-	xor rdi, rdi
-	mov rdi, rsi
-	call ex_strlen
-	xor rcx, rcx
-	mov rcx, rax
-	xor rdi, rdi
-	mov rdi, r8
-	cld
-	cmp rcx, rcx
-	rep movsb
-	xor rax, rax
-	stosb
-	mov rax, rdi
+    mov r8, rdi		;Move rdi into r8 for storage
+	xor rdi, rdi	;zero rdi
+	mov rdi, rsi	;mov source string into rdi
+	call ex_strlen	;get stringlength of rdi
+	xor rcx, rcx	;zero rcx
+	mov rcx, rax	;move strlen into rcx
+	mov rdi, r8		;move stored destination string back into rdi
+	cld				;clear direction flag	
+	rep movsb		;repeatedly move data from rsi to rdi and increment pointers
+	xor rax, rax	;zero out rax
+	stosb			;initialize rdi string and increment the pointer
+	mov rax, rdi	;set rax equal to rdi for the return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -257,11 +259,38 @@ ex_strcpy:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-ex_atoi:
+ex_atoi:	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;int atoi(const char *str)
+	;rdi : string
+	atoi:
+    	mov rax, 0              ; Set initial total to 0
+     
+	convert:
+		movzx rsi, byte [rdi]   ; Get the current character
+		test rsi, rsi           ; Check for \0
+		je done
+		
+		cmp rsi, 48             ; Anything less than 0 is invalid
+		jl error
+		
+		cmp rsi, 57             ; Anything greater than 9 is invalid
+		jg error
+		
+		sub rsi, 48             ; Convert from ASCII to decimal 
+		imul rax, 10            ; Multiply total by 10
+		add rax, rsi            ; Add current digit to total
+		
+		inc rdi                 ; Get the address of the next character
+		jmp convert
 
+	error:
+		mov rax, -1             ; Return -1 on error
+	
+	done:
+		ret                     ; Return total or error code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -271,8 +300,11 @@ ex_atoi:
 ex_strstr:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
+;	char *strstr(const char *haystack, const char *needle)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+	;rdi : Haystack to search through
+	;rsi : needle to look for
+	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -293,16 +325,16 @@ endstruc
 	xor rax, rax
 	
 	.continue:
-		mov rax, [rdi + Node.Data]
-		cmp rsi, rax
-		je .found
+		mov eax, [edi + Node.Data]		;set eax equal to edi's node data
+		cmp esi, eax					;cmp esi to eax
+		je .found						;Found the needle jump to end
 
-		mov rdi, [rdi + Node.Next]
-		cmp rdi, 0
-		je .end
-		jmp .continue
+		mov edi, [edi + Node.Next]		;Move the next node forward in edi
+		cmp edi, 0						;Null node check
+		je .end							;Null terminator located	
+		jmp .continue					;jump to continue if needle isn't found
 	.found:
-		mov rax, rdi
+		mov eax, [edi + Node.Data]		;set eax equal to edi data
 	.end:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
