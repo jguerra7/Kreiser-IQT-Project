@@ -301,37 +301,49 @@ ex_strstr:	;extern "C" char* ex_strstr(char*, char*);
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;rdi : Haystack to search through
-	;rsi : needle to look for
-	
-	xor rax, rax	;Zero rax
-	push rdi		;Preserve string
-	mov rax, rdi	;Move string to rax
-	call ex_strlen	;Find length of first string
-	xor rcx, rcx	;zero count register
-	mov rcx, rax	;transfer string length
-	pop rdi			;Bring string off of stack
-	cld				;clear direction flag
+	;rdi : Full string buffer to search for substring
+	;rsi :  to look for
+	;Shout to Donnie Macary for the solution
+	push rbp
+	mov rbp, rsp
 
-	.beginning:
-		mov rax, rsi
-		scasb
-		jmp .keepgoing		
+.setUp:
+    mov rbx, rdi                    ;storing the location of the beginning of rdi
+.getLengthNeedle:
+    mov rdi, rsi        
+    call ex_strlen                  ;get length of needle and store it in rcx
+    mov r9, rax                     ;stores needle length into r9 
+.getLengthHaystack:
+    mov rdi, rbx                    ;move the haystack back into rdi
+    call ex_strlen                  ;gets the length of the haystack
+    mov rcx, rax                    ;moves the length of the haystack into rcx
+.findFirst:                         ;scans haystack for the first character of the needle
+    mov rdi, rbx                    ;make sure were at the right spot in the haystack
+    movzx rax, byte [rsi]           ;moves the first character of the needle into rax
+    repne scasb                     ;scans the haystack for the first character
+    jne .notfound                    ;end if we have reached the end of the haystack
+    sub rdi, 1                      ;string instructions always go one past so we need to go back one
+    mov rbx, rdi                    ;since we have found the first chr of the needle lets preserve this location
 
-	.keepgoing:	;second character		
-		inc rdi
-		inc rsi
-		add rax, [rsi]
-		cmp rdi, rax
-		je .keepgoing
-		jl .beginning
-		jne .notfound
+.compareNeedle:                     ;Checks to see if the next (needle len) characters of the haystack are = to the needle
+    mov rcx, r9                     ;move the length of the needle from r9
+    push rsi                        ;preserve the location of the needle
+    rep cmpsb                       ;compare needle length times
+    je .found                       ;if the two strings are = to this point then yay we found it
+    pop rsi                         ;start back at the beginning of the needle
+    add rbx, 1                      ;increment past the character we found 
+    jmp .getLengthHaystack          ;if they are not equal then go back to looking for the first charcter again
 
-	.notfound:
-		mov rax, 0
-	.end:
-	
-	ret
+.notfound:
+    xor rax, rax
+    jmp .end
+
+.found:
+    pop rsi                         ;start back at the beginning of the needle
+    mov rax, rbx                    ;move the location of the haystack before we found the string (right at the beginning)
+
+.end:
+    pop rbp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
