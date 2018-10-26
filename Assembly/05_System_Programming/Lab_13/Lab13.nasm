@@ -297,14 +297,41 @@ ex_atoi:
     ret
 
 
-ex_strstr:
+ex_strstr:	;extern "C" char* ex_strstr(char*, char*);
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
-;	char *strstr(const char *haystack, const char *needle)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;rdi : Haystack to search through
 	;rsi : needle to look for
 	
+	xor rax, rax	;Zero rax
+	push rdi		;Preserve string
+	mov rax, rdi	;Move string to rax
+	call ex_strlen	;Find length of first string
+	xor rcx, rcx	;zero count register
+	mov rcx, rax	;transfer string length
+	pop rdi			;Bring string off of stack
+	cld				;clear direction flag
+
+	.beginning:
+		mov rax, rsi
+		scasb
+		jmp .keepgoing		
+
+	.keepgoing:	;second character		
+		inc rdi
+		inc rsi
+		add rax, [rsi]
+		cmp rdi, rax
+		je .keepgoing
+		jl .beginning
+		jne .notfound
+
+	.notfound:
+		mov rax, 0
+	.end:
+	
+	ret
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
