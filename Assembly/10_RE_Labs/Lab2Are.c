@@ -24,7 +24,6 @@ int main(void)
 {
     //1 parameter
     srand(time(0)); //Create the time seed
-
     int arg_0 = 0;
 
     printf("Fibonacci...\nEnter a number:");
