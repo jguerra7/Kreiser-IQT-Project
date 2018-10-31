@@ -45,13 +45,15 @@ ex_strlen:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    xor rax, rax
-    mov rdx, 0xfffffffffffff
-    mov rcx, rdx
-    repne scasb
-    sub rdx, rcx
-    dec rdx
-    mov rax, rdx
+    xor rax, rax				;zero out rax
+    mov rdx, 0xfffffffffffff	;set rdx to super high number
+    mov rcx, rdx				;set rcx to high number
+
+    repne scasb					;repeat until null
+    sub rdx, rcx				;calculate offset
+
+    dec rdx						;decrement rdx
+    mov rax, rdx				;store rdx in our return value
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -70,10 +72,10 @@ ex_memcpy:
 	mov rcx, rdx
 
 	rep movsb
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ret
-
 
 ex_memset:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -84,12 +86,12 @@ ex_memset:
 	; rdi : buffer pointer
 	; rsi : some value
 	; rdx : length
-	xor rax, rax
-	xor rcx, rcx
+	xor rax, rax		;zero out rax
+	xor rcx, rcx		;zero out rcx
 
     mov     rcx, rdx 	; size_t num
     mov     rax, rsi	;move the value into rax
-    rep     stosb
+    rep     stosb		;repeat storing bytes in buffer
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -136,7 +138,7 @@ ex_memcmp:
 	;rdx : length of buffer
 
 	xor rcx, rcx	;zero rcx
-	mov rcx, rdx	;move length into rcx
+	mov rcx, rdx	;move length into srcx
 
 	cld				;Clear direction flag	
 	rep cmpsb		;repeatedly compare rsi and rdi, increment the pointer and update flags
@@ -294,7 +296,7 @@ ex_atoi:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ret
+    
 
 
 ex_strstr:	;extern "C" char* ex_strstr(char*, char*);
@@ -303,7 +305,7 @@ ex_strstr:	;extern "C" char* ex_strstr(char*, char*);
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;rdi : Full string buffer to search for substring
 	;rsi :  to look for
-	;Shout to Donnie Macary for the solution
+	;Shout out to ELF for the solution
 	push rbp
 	mov rbp, rsp
 
@@ -389,6 +391,50 @@ ex_isort:
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;Shout out to ELF for the solution
+push rbp
+mov rbp, rsp
+
+.setup:
+	xor rcx, rcx
+	mov rcx, 1                  ;rcx = j
+	xor rbx, rbx                ;rbx = i = 0
+	xor rax, rax                ;rax = key = 0
+	xor edx, edx
+cmp rdi, 0                      ;check if the array is empty
+je .end
+cmp rsi, 0                      ;check if the size is 0
+je .end
+.outterLoop:
+	cmp rcx, rsi                ;compares j to size if j>size then were done
+	je .end                     ;if j > size end
+	mov rbx, rcx                ;i=j-1
+	sub rbx, 1
+	lea rax, [rdi + rcx*4]
+	mov eax, dword [rax]
+
+	.innerLoop:
+		cmp rbx, -1                         ;if i <0 then iterate to next j value
+		je .backToOuter          
+		cmp [rdi + rbx*4], eax              ;if array[i] > key iterate to next i value
+		jb .backToInner  
+		lea rdx, [rdi + rbx*4]              ;edx = *array[i]
+		mov edx, dword [rdx]                ;edx = array[i]
+		xchg edx, [rdi + rbx*4 + 4]         ;array[i+1]<-->r10
+		xchg edx, [rdi + rbx*4]             ;array[i]<-->r10
+		jmp .backToInner 
+
+.backToOuter:
+	add rcx, 1                          ;j+1
+	jmp .outterLoop
+
+.backToInner:
+	sub rbx, 1                          ;i+1
+	jmp .innerLoop
+
+.end:
+	mov rax, rdi
+	pop rbp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -399,8 +445,150 @@ ex_qsort:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;This function produced by Miguel Casillas
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  END student code
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ret
+	;This registers must be stored until the end
+; 	push rbp
+; 	mov rbp, rsp
+; 	push rbx
+; 	push rsi
+; 	push rdi
+
+; 	;EBP + 8 is the array
+; 	;EBP + 12 is the number of items in the array
+
+; 	mov esi, [rbp+ 8]
+
+; 	;setting ecx to the number of items
+; 	;we multiply y 4 (size of the element) in order to put ecx
+; 	;at the last address of the array
+
+; 	mov eax, [rbp+12]
+; 	mov ecx, 4
+; 	mul ecx
+; 	mov ecx, eax
+
+; 	;eax will be our 'low index', we initially set it to 0
+; 	xor eax, eax
+
+; 	;ebx will be our 'high index', we initally set it to
+; 	;the last element of the array (currently stored in ecx)
+; 	mov ebx, ecx
+
+; 	;We now call our recursive quicksort function that will sort the array
+; 	call quickRecursive
+
+; 	;restoring the registers
+; 	pop rdi
+; 	pop rsi
+; 	pop rbx
+; 	pop rbp
+
+; quickRecursive:
+; 	;If lowIndex >= highIndex, we exit the function
+; 	cmp eax, ebx
+; 	jge postIf
+
+; 	push rax	;saving our low index, now eax is 'i'
+; 	push rbx	;saving our high index, now ebx is 'j'
+; 	add ebx, 4	;j = high + 1
+
+; 	;edi is our pivot
+; 	;pivot = array[lowIndex];
+; 	mov edi, [esi+eax]
+
+; 	mainLoop:
+
+; 		iIncreaseLoop:
+
+; 			;i++
+; 			add eax, 4
+
+; 			;If i >= j, exit this loop
+;             cmp eax, ebx
+;             jge End_iIncreaseLoop
+           
+;             ;If array[i] >= pivot, exit this loop
+;             cmp [esi+eax], edi
+;             jge End_iIncreaseLoop
+           
+;             ;Go back to the top of this loop
+;             jmp iIncreaseLoop
+
+;         End_iIncreaseLoop:
+       
+;         jDecreaseLoop:
+       
+;             ;j--
+;             sub ebx, 4
+           
+;             ;If array[j] <= pivot, exit this loop
+;             cmp [esi+ebx], edi
+;             jle End_jDecreaseLoop
+           
+;             ;Go back to the top of this loop
+;             jmp jDecreaseLoop
+
+;         End_jDecreaseLoop:
+       
+;         ;If i >= j, then don't swap and end the main loop
+;         cmp eax, ebx
+;         jge EndMainLoop
+       
+;         ;Else, swap array[i] with array [j]
+;         push [rsi+rax]
+;         push [rsi+rbx]
+       
+;         pop [rsi+rax]
+;         pop [rsi+rbx]
+       
+;         ;Go back to the top of the main loop
+;         jmp mainLoop
+       
+;     EndMainLoop:       
+   
+;     ;Restore the high index into EDI
+;     pop rdi
+   
+;     ;Restore the low index into ECX
+;     pop rcx
+   
+;     ;If low index == j, don't swap
+;     cmp ecx, ebx
+;     je EndSwap
+   
+;     ;Else, swap array[low index] with array[j]
+;     push [rsi+rcx]
+;     push [rsi+rbx]
+       
+;     pop [rsi+rcx]
+;     pop [rsi+rbx]
+       
+;     EndSwap:
+
+;     ;Setting EAX back to the low index
+;     mov eax, ecx
+   
+;     push rdi    ;Saving the high Index
+;     push rbx    ;Saving j
+   
+;     sub ebx, 4  ;Setting EBX to j-1
+   
+;     ;QuickSort(array, low index, j-1)
+;     call quickRecursive
+   
+;     ;Restore 'j' into EAX
+;     pop rax
+;     add eax, 4  ;setting EAX to j+1
+   
+;     ;Restore the high index into EBX
+;     pop rbx
+   
+;     ;QuickSort(array, j+1, high index)
+;     call quickRecursive
+   
+;     postIf: 
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  END student code
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;     ret
