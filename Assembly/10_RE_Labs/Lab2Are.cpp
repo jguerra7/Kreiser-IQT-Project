@@ -1,8 +1,6 @@
 //Reverse Engineering Lab2A
 #include <stdio.h>
 #include <time.h>
-#include <chrono>
-
 
 int fibo(int a)
 {   
@@ -25,14 +23,26 @@ int fibo(int a)
 int iterFibo(int a)
 {
     int f1 = 0, f2 = 1, f;
-    do{
-        f = f1+f2;
-        f1 = f2;
-        f2 = f;
-        a--;
+    if (a == 0)
+    {
+        a = 0;
+        return a;
+    }
+    else if (a == 1)
+    {
+        a = 1;
+        return a;
+    }
+    else
+    {
+        do {
+            f = f1+f2;
+            f1 = f2;
+            f2 = f;
+            a--;
+        } while(a>1);
 
-    }while(a>1);
-
+    }   
     return f;
 }
 int main(void)
@@ -42,23 +52,23 @@ int main(void)
     int arg_0 = 20;
     int recurFib = 0, iterfib = 0;
     //Recursive and Iterative time start
-    clock_t start, end;
+    clock_t recStart, recEnd, iterStart, iterEnd;
     double recur_time_used, iter_time_used;
 
     //Tracking the time that recursive fibonacci takes
-    start = clock();
-    printf("This is a test %f.\n", (double)start);
+    recStart = clock();
+    printf("This is a test %f.\n", (double)recStart);
     recurFib = fibo(arg_0);
-    end = clock();
-    recur_time_used = ((double)(end-start) /CLOCKS_PER_SEC);
+    recEnd = clock()-recStart;
+    recur_time_used = ((double)(recEnd)/CLOCKS_PER_SEC);
 
     //Tracking the time that iterative fibonacci takes
-    start = clock();
+    iterStart = clock();
     iterfib = iterFibo(arg_0);
-    end = clock() - start;
-    iter_time_used =  ((double) (end)/CLOCKS_PER_SEC);
+    iterEnd = clock() - iterStart;
+    iter_time_used =  ((double) (iterEnd)/CLOCKS_PER_SEC);
 
-    printf(" N1: %d N2: %d\n\n", recurFib, iterfib);
+    printf("N1: %d N2: %d\n\n", recurFib, iterfib);
 
     if (iter_time_used < recur_time_used)
     {
@@ -68,7 +78,7 @@ int main(void)
     else
     {
         printf("N1 is less than N2.\n");
-        printf("N1: %f N2: %f", recur_time_used, iter_time_used);
+        printf("N1: %f N2: %f\n", recur_time_used, iter_time_used);
     }
 
     return 0;
